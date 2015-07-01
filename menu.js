@@ -1,6 +1,4 @@
-var jade = require('jade');
-
-var sections = [
+module.exports = [
   {
     name: 'Hot Tapas',
     items: [
@@ -111,11 +109,3 @@ var sections = [
     ]
   }
 ];
-
-var html = jade.compileFile('index.jade', {
-  pretty: true
-})({
-  sections: sections
-});
-
-require('fs').writeFileSync(__dirname + '/generated.html', html);

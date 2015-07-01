@@ -57,8 +57,8 @@ body {
   background-image: url(../img/icon-glutenfree.png);
 }
 
-.dish-name {
-  font-size: 16px;
+.dish-name>.row>h2 {
+  font-size: 16px !important;
 }
 
 .food-box-container {
@@ -108,6 +108,10 @@ body {
 .food-box-content:hover h4 {
   display: block;
   color: white;
+}
+
+.order-group {
+  margin-top: 10px;
 }
 
 .food-box-content:hover span {

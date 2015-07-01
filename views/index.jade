@@ -6,6 +6,7 @@ html(lang="en")
     title Tapas
     link(rel="stylesheet" href="css/bootstrap.min.css")
     link(rel="stylesheet" href="css/tapas.css")
+    link(rel="stylesheet" href="css/font-awesome.min.css")
     script(src="js/jquery.min.js")
     script(src="js/bootstrap.min.js")
   body
@@ -16,7 +17,13 @@ html(lang="en")
         .row
           for item, index in section.items
             .food-box-container.col-md-3.col-sm-4.col-xs-12.text-center: .food-box: .food-box-content: .food-box-relative
-              h2.dish-name= item.name
+              .name-display
+                .dish-name
+                  .row
+                    h2.col-xs-8= item.name
+                    a.btn.btn-success.order-button.col-xs-4
+                      i.fa.fa-shopping-cart
+                      |  Choose
               h4= item.description
               if item.attrs
                 for attr in item.attrs

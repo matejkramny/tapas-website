@@ -1,0 +1,30 @@
+doctype
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title Tapas
+    link(rel="stylesheet" href="css/bootstrap.min.css")
+    link(rel="stylesheet" href="css/tapas.css")
+    script(src="js/jquery.min.js")
+    script(src="js/bootstrap.min.js")
+  body
+    img.tapas-logo(src="https://placeholdit.imgix.net/~text?txtsize=33&txt=LOGO&w=150&h=100" alt="")
+    .container.food-menu
+      for section in sections
+        h1.text-center= section.name
+        .row
+          for item, index in section.items
+            .food-box-container.col-md-3.col-sm-4.col-xs-12.text-center: .food-box: .food-box-content: .food-box-relative
+              h2.dish-name= item.name
+              h4= item.description
+              if item.attrs
+                for attr in item.attrs
+                  if attr == 'v'
+                    span.vegeterian Vegeterian
+                  if attr == 'g'
+                    span.gluten-free Gluten Free
+            if (index + 1) % 4 == 0
+              .clearfix.visible-lg.visible-md
+            if (index + 1) % 3 == 0
+              .clearfix.visible-sm

@@ -35,7 +35,7 @@ body {
   border-radius: 5px
 }
 
-.vegeterian {
+.vegetarian {
   text-indent: -9999px;
   display: inline-block;
   height: 36px;
@@ -62,9 +62,8 @@ body {
 }
 
 .food-box-container {
-  border: 1px solid #333;
   padding: 0;
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 }
 .food-box {
   margin-top: 100%;
@@ -76,13 +75,27 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 10px;
+  padding: 0 10px;
 }
 .food-box-relative {
   position: relative;
   width: 100%;
   height: 100%;
+  background-position: center;
+  background-size: auto 100%;
+
 }
+
+.food-box-relative:hover > .overlay {
+  border-radius: 0 !important;
+  width:100%;
+  height:100%;
+  position:absolute;
+  background-color:#000;
+  opacity:0.5;
+  border-radius:30px;
+}
+
 .food-box .dish-name {
   position: absolute;
   bottom: 0px;
@@ -91,21 +104,36 @@ body {
   width: 100%;
   color: white;
   text-align: left;
-  padding: 10px;
   margin-bottom: 0;
 }
 .food-box span {
   display: none;
 }
+
+.item-name {
+  display: none;
+  top: 0;
+  font-size: 22px;
+  padding: 3px 0 10px;
+}
+
 .food-box h4 {
   display: none;
   top: 0;
   font-size: 14px;
+  margin: 0;
 }
-.food-box-content:hover {
+.food-box-relative:hover {
   background: #333;
+  background-position: center;
+  background-size: auto 100%;
 }
-.food-box-content:hover h4 {
+.food-box-relative:hover h4 {
+  display: block;
+  color: white;
+}
+
+.food-box-relative:hover h2 {
   display: block;
   color: white;
 }
@@ -114,10 +142,36 @@ body {
   margin-top: 10px;
 }
 
-.food-box-content:hover span {
+.food-box-relative:hover span {
   display: inline-block !important;
 }
 
 h4 {
   font-weight: normal !important;
+}
+
+.dish-description{
+  position: absolute;
+  padding: 7px;
+  width: 100%;
+}
+
+.item-description{
+  padding-bottom: 10px;
+}
+
+.item-price{
+  margin: 0;
+  text-align: center;
+  line-height: 2em;
+  font-size: 1.5em;
+}
+
+.row{
+  margin: 0;
+}
+
+.order-button{
+  border: none;
+  border-radius: 0;
 }

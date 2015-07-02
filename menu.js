@@ -5,6 +5,8 @@ module.exports = [
       {
         name: 'Patates bravas',
         description: 'Diced potates with spicy chilli tomato sause & aioli',
+        price: 1.5,
+        image: "000.jpg",
         attrs: ['v', 'g']
       }, {
         name: 'Tortilla de patatas',

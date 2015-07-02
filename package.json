@@ -2,7 +2,7 @@
   "name": "tapas",
   "version": "1.0.0",
   "description": "",
-  "main": "menu.js",
+  "main": "server.js",
   "dependencies": {
     "express": "^4.13.0",
     "jade": "^1.11.0",

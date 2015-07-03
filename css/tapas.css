@@ -4,20 +4,52 @@ body {
   background-size: 200px;
   -webkit-background-size: 200px;
   padding-bottom: 20px;
+  padding-top: 60px;
+}
+
+.spacer{
+  width: 30px;
+  height: 100%;
+}
+
+.navbar .nav{
+  float: none;
+  text-align: center;
+}
+.navbar .nav > li{
+  float: none;
+  display: inline-block;
+}
+
+.navbar-text{
+  font-size: 20px;
+  margin: 0;
+}
+
+.marketing-img{
+  width:100%;
+}
+
+.navbar-brand > img{
+  height: 25px;
 }
 
 .food-menu {
   margin-top: 10px;
   padding: 10px 10px;
-  border-radius: 10px 0 0 10px;
+  border-radius: 10px;
 
   /* background */
   background-image: url(../img/menu.png);
   background-repeat: repeat;
   -webkit-background-size: 200px;
-  background-size: 200px;
+  background-size: 200px;;
 
-  margin-right: 0;
+}
+
+img{
+  -moz-user-select: none;
+  -webkit-user-drag: none;
 }
 
 .food-menu > .row {
@@ -174,4 +206,36 @@ h4 {
 .order-button{
   border: none;
   border-radius: 0;
+}
+
+a.top {
+  position: relative;
+  top:-100px;
+  display: block;
+  height: 0;
+  width:0;
+}
+
+.order-details-head{
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.table-bordered{
+  border: 3px solid #555;
+  box-shadow: 3px 3px 5px #888;
+}
+
+.table-bordered>tbody>tr>td,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>td,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>thead>tr>th{
+  border: 1px solid #555;
+}
+
+.form-control{
+  margin-bottom: 10px;
 }

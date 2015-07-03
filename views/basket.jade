@@ -1,0 +1,27 @@
+extend top
+
+block body
+    .container.food-menu
+        .col-sm-4.col-sm-offset-1
+            h3 Please enter your details below to confirm your order.
+            form(action="/confirm" method="post")
+                input.col-xs-12.form-control(type="text" placeholder="Full Name")
+                textarea.col-xs-12.form-control(placeholder="Address")
+                input.col-xs-12.form-control(type="text" placeholder="Phone #")
+                input.col-xs-12.form-control(type="email" placeholder="Email")
+                .text-center
+                    button.btn.btn-success(type="submit")
+                        i.fa.fa-check
+                        |  Confirm
+        .col-sm-6.col-sm-offset-1
+            table.table.table-bordered
+                thead.order-details-head
+                    tr
+                        td Dish
+                        td Qty
+                        td Price
+                tbody
+                    tr
+                        td Le dish of fish
+                        td 1337
+                        td £ 13.37

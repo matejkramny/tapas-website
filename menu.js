@@ -107,7 +107,7 @@ module.exports = [
         name: 'Pimientos del piquillo',
         description: 'Sweet piquillo peppers in olive oil and garlic dressing.',
         attrs: ['v', 'g']
-      },
+      }
     ]
   }
 ];

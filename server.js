@@ -14,12 +14,16 @@ app.get('/', function(req, res) {
   });
 })
 .get('/basket', function(req, res) {
-  res.render('basket', {});
+  res.render('basket', {
+    sections: menu
+  });
 })
-.get('/order_complete', function(req, res) {
-  res.render('order_complete', {});
+.post('/confirm', function(req, res) {
+  res.render('confirm', {
+    sections: menu
+  });
 })
 
 require('http').createServer(app).listen(process.env.PORT || 3000, function () {
-  console.log('listening to :3000');
+  console.log('listening to :'+(process.env.PORT || 3000));
 });

@@ -7,28 +7,31 @@ block body
             h1.text-center= section.name
             .row
                 for item, index in section.items
-                    .food-box-container.col-md-3.col-sm-4.col-xs-12.text-center: .food-box: .food-box-content: .food-box-relative(style="background-image: url(img/products/#{item.image})")
-                        .overlay
-                        .name-display
-                            .dish-name
-                                .row#dish-name
-                                    h2(style="margin: 10px 5px 10px; font-size: 15px").text-center= item.name
-                                .row
-                                    h2.col-xs-6.item-price
-                                        if item.price
-                                            = "£ "+item.price.toFixed(2)
-                                    a.btn.btn-success.order-button.col-xs-6
-                                        i.fa.fa-shopping-cart
-                                        |  Choose
-                        .dish-description
-                            h2.item-name= item.name
-                            h4.item-description= item.description
-                            if item.attrs
-                                for attr in item.attrs
-                                    if attr == 'v'
-                                        span.vegetarian Vegetarian
-                                    if attr == 'g'
-                                        span.gluten-free Gluten Free
+                    .food-box-container.col-md-3.col-sm-4.col-xs-12.text-center: .food-box: .food-box-content
+                        .food-box-relative(style=item.image?("background-image: url(img/products/#{item.image})"):undefined)
+                            .overlay
+                            .name-display
+                                .dish-name
+                                    .row#dish-name
+                                        h2(style="margin: 10px 5px 10px; font-size: 15px").text-center= item.name
+                                    .row
+                                        h2.col-xs-6.item-price
+                                            if item.price
+                                                = "£ "+item.price.toFixed(2)
+                                            else
+                                                | No price set
+                                        a.btn.btn-success.order-button.col-xs-6
+                                            i.fa.fa-shopping-cart
+                                            |  Choose
+                            .dish-description
+                                h2.item-name= item.name
+                                h4.item-description= item.description
+                                if item.attrs
+                                    for attr in item.attrs
+                                        if attr == 'v'
+                                            span.vegetarian Vegetarian
+                                        if attr == 'g'
+                                            span.gluten-free Gluten Free
                     if (index + 1) % 4 == 0
                         .clearfix.visible-lg.visible-md
                     if (index + 1) % 3 == 0

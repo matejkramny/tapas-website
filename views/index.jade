@@ -11,6 +11,8 @@ block body
                         .overlay
                         .name-display
                             .dish-name
+                                .row#dish-name
+                                    h2(style="margin: 10px 5px 10px; font-size: 15px").text-center= item.name
                                 .row
                                     h2.col-xs-6.item-price
                                         if item.price

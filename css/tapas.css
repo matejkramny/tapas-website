@@ -1,5 +1,5 @@
 body {
-  background-image: url(../img/bg.png);
+  background-image: url(../img/main.png);
   background-repeat: repeat;
   background-size: 200px;
   -webkit-background-size: 200px;
@@ -131,7 +131,7 @@ img{
 .food-box .dish-name {
   position: absolute;
   bottom: 0px;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.6);
   display: block;
   width: 100%;
   color: white;
@@ -168,6 +168,10 @@ img{
 .food-box-relative:hover h2 {
   display: block;
   color: white;
+}
+
+.food-box-relative:hover #dish-name {
+  display: none;
 }
 
 .order-group {

@@ -18,6 +18,11 @@ app.get('/', function(req, res) {
     sections: menu
   });
 })
+.get('/promo', function(req, res) {
+  res.render('promo', {
+    sections: menu
+  });
+})
 .post('/confirm', function(req, res) {
   res.render('confirm', {
     sections: menu

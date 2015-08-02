@@ -38,6 +38,7 @@ body {
   margin-top: 10px;
   padding: 10px 10px;
   border-radius: 10px;
+  text-align: justify;
 
   /* background */
   background-image: url(../img/menu.png);

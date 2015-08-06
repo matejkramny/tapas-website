@@ -102,7 +102,7 @@ module.exports = [
         image:"paella-marisco.jpg"
       }, {
         name: 'Boguerones en adobo',
-        description: 'Marinated crispy whitebait',
+        description: 'Marinated crispy whitebait'
       }, {
         name: 'Bunuelos de bacalao',
         description: 'Light and fluffy cod fritters with garlic, parsley and aioli'

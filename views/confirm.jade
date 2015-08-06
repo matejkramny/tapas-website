@@ -1,6 +1,10 @@
 extend top
 
 block body
-    .container.food-menu.text-center
-        h1 Your order has been completed
-        h3.lead We will call you shortly to confirm the details
+    .container.food-menu(ng-controller="ConfirmCtrl")
+        h1.text-center Your order is being processed
+        h3.text-center.lead We will call you on <em>{{ customer.phone }}</em> shortly to confirm the details
+
+        .row: .col-sm-6.col-sm-offset-3
+          h4 You have ordered:
+          ul: li(ng-repeat="item in basket.items") {{ item.quantity }} x {{ item.obj.name }}

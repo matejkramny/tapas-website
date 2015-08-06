@@ -242,5 +242,9 @@ a.top {
 }
 
 .form-control{
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
+}
+
+.control-label {
+  padding-right: 5px;
 }

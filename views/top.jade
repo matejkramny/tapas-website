@@ -1,5 +1,5 @@
 doctype
-html(lang="en")
+html(lang="en" ng-app="tapas")
   head
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
@@ -7,9 +7,12 @@ html(lang="en")
     link(rel="stylesheet" href="css/bootstrap.min.css")
     link(rel="stylesheet" href="css/tapas.css")
     link(rel="stylesheet" href="css/font-awesome.min.css")
+
     script(src="js/jquery.min.js")
     script(src="js/bootstrap.min.js")
-    script(src="node_modules/angular/angular.js")
+    script(src="js/angular.min.js")
+    script(src="js/angular-local-storage.min.js")
+    script(src="js/app.js")
   body
     nav.navbar.navbar-fixed-top.navbar-inverse
       .container-fluid
@@ -24,15 +27,14 @@ html(lang="en")
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-text
             for section in sections
-              li
-                a(href="/#"+section.name.replace(/\s+/g, '-').toLowerCase())=section.name
+              li: a(href="/#"+section.name.replace(/\s+/g, '-').toLowerCase())=section.name
             br.visible-xs
-            li.btn-success(style="float:right;")
+            li.btn-success.pull-right(style="padding-left: 15px; padding-right: 15px;" ng-if="!hasOrdered")
                 a(href="/basket" style="color: #fff")
-                  i.fa.fa-shopping-cart
-                  |  0
-            li
-              .spacer.hidden-xs
+                  i.fa.fa-shopping-cart.fa-fw
+                  | &nbsp;
+                  span(ng-bind="basket.totalItems") 0
+            li: .spacer.hidden-xs
     .container.marketing
       a(href="/promo")
         img.marketing-img(src="img/promo.png" alt="")

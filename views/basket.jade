@@ -1,27 +1,45 @@
 extend top
 
 block body
-    .container.food-menu
-        .col-sm-4.col-sm-offset-1
-            h3 Please enter your details below to confirm your order.
-            form(action="/confirm" method="post")
-                input.col-xs-12.form-control(type="text" placeholder="Full Name")
-                textarea.col-xs-12.form-control(placeholder="Address")
-                input.col-xs-12.form-control(type="text" placeholder="Phone #")
-                input.col-xs-12.form-control(type="email" placeholder="Email")
-                .text-center
-                    button.btn.btn-success(type="submit")
-                        i.fa.fa-check
-                        |  Confirm
-        .col-sm-6.col-sm-offset-1
+    .container.food-menu(ng-controller="BasketCtrl")
+        .col-sm-6
+            h3.text-center Confirm your Details
+            br
+            form.form-horizontal(name="customerForm")
+                .form-group
+                    label.control-label.col-sm-4 Name
+                    .col-sm-6
+                        input.form-control(type="text" placeholder="Full Name" ng-model="customer.name" required ng-change="saveCustomer()")
+                .form-group
+                    label.control-label.col-sm-4 Address
+                    .col-sm-6
+                        textarea.form-control(placeholder="Address" ng-model="customer.address" required ng-change="saveCustomer()")
+                .form-group
+                    label.control-label.col-sm-4 Phone Number
+                    .col-sm-6
+                        input.form-control(type="tel" placeholder="Phone #" ng-model="customer.phone" required ng-change="saveCustomer()")
+                .form-group
+                    label.control-label.col-sm-4 Email Address
+                    .col-sm-6
+                        input.form-control(type="email" placeholder="Email" ng-model="customer.email" required ng-change="saveCustomer()")
+                .form-group: .col-sm-6.col-sm-offset-4
+                    button.btn.btn-success(type="submit" ng-disabled="customerForm.$invalid || submitting" ng-click="submitOrder()")
+                        span(ng-if="!submitting")
+                            i.fa.fa-check.fa-fw
+                            | &nbsp;Confirm Order
+                        span(ng-if="submitting")
+                            i.fa.fa-spin.fa-refresh.fa-fw
+                            | &nbsp;Sending order...
+        .col-sm-6
+            h3.text-center Basket Items
             table.table.table-bordered
-                thead.order-details-head
-                    tr
-                        td Dish
-                        td Qty
-                        td Price
-                tbody
-                    tr
-                        td Le dish of fish
-                        td 1337
-                        td £ 13.37
+                thead.order-details-head: tr
+                    td Dish
+                    td Qty
+                    td Price
+                    td &nbsp;
+                tbody: tr(ng-repeat="item in basket.items track by $index")
+                    td {{ item.obj.name }}
+                    td: input(type="number" ng-model="item.quantity" ng-change="basket.save()")
+                    td £{{ (item.quantity * item.obj.price).toFixed(2) }}
+                    td: button.btn.btn-danger.btn-xs(ng-click="basket.remove(item); basket.save()"): i.fa.fa-fw.fa-times

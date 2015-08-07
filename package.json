@@ -4,10 +4,11 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "angular": "^1.4.1",
     "express": "^4.13.0",
     "jade": "^1.11.0",
-    "serve-static": "^1.10.0",
-    "angular": "^1.4.1"
+    "morgan": "^1.6.1",
+    "serve-static": "^1.10.0"
   },
   "devDependencies": {},
   "scripts": {

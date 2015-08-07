@@ -75,7 +75,7 @@ module.exports = [
       }, {
         name: 'Mejillones',
         description: 'Fresh mussels with garlic, white wine, parsley & cream',
-        image: "Mejillones"
+        image: "mejillones.jpg"
       }, {
         name: 'Gambas a la plancha ',
         description: 'Grilled black tiger prawns served with aioli',

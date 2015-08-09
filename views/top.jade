@@ -35,7 +35,8 @@ html(lang="en" ng-app="tapas")
                   | &nbsp;
                   span(ng-bind="basket.totalItems") 0
             li: .spacer.hidden-xs
-    .container.marketing
-      a(href="/promo")
-        img.marketing-img(src="img/promo.png" alt="")
+    if promo
+      .container.marketing
+        a(href=promo)
+          img.marketing-img(src="img/promo.png" alt="")
     block body

@@ -10,6 +10,7 @@ app.use(require('morgan')('dev'))
 app.use(require('serve-static')(__dirname));
 
 app.locals.sections = menu;
+app.locals.promo = false;
 
 app.get('/', function(req, res) {
   res.render('index');

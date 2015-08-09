@@ -138,5 +138,5 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, localStorageService,
 	basketService.getItems();
 	$rootScope.hasOrdered = true;
 
-	// localStorageService.set('basket_items', '[]');
+	localStorageService.set('basket_items', '[]');
 });

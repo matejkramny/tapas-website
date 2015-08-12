@@ -15,26 +15,25 @@ html(lang="en" ng-app="tapas")
     script(src="js/app.js")
   body
     nav.navbar.navbar-fixed-top.navbar-inverse
-      .container-fluid
+      .container
         .navbar-header
           button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false')
             span.sr-only Toggle navigation
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand
-            img(src="img/logo.png")
+          a.navbar-brand: img(src="img/logo.png")
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-text
             for section in sections
               li: a(href="/#"+section.name.replace(/\s+/g, '-').toLowerCase())=section.name
             br.visible-xs
+
             li.btn-success.pull-right(style="padding-left: 15px; padding-right: 15px;" ng-if="!hasOrdered")
                 a(href="/basket" style="color: #fff")
                   i.fa.fa-shopping-cart.fa-fw
                   | &nbsp;
                   span(ng-bind="basket.totalItems") 0
-            li: .spacer.hidden-xs
     if promo
       .container.marketing
         a(href=promo)

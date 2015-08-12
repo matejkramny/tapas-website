@@ -29,7 +29,6 @@ app.controller('BasketCtrl', function ($scope, $http, basketService, localStorag
 	}
 
 	$scope.submitOrder = function () {
-		$scope.submitting = true;
 		var items = [];
 		for (var i = 0; i < basketService.items.length; i++) {
 			items.push({
@@ -38,6 +37,9 @@ app.controller('BasketCtrl', function ($scope, $http, basketService, localStorag
 			});
 		}
 
+		if (items.length == 0) return;
+
+		$scope.submitting = true;
 		$http.post('/order', {
 			items: items,
 			customer: $scope.customer

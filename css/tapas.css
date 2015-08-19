@@ -5,6 +5,7 @@ body {
   -webkit-background-size: 200px;
   padding-bottom: 20px;
   padding-top: 60px;
+  background-attachment: fixed;
 }
 
 .navbar-inverse .navbar-nav>li>a {

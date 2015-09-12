@@ -29,7 +29,7 @@ html(lang="en" ng-app="tapas")
               li: a(href="/#"+section.name.replace(/\s+/g, '-').toLowerCase())=section.name
             br.visible-xs
 
-            li.btn-success.pull-right(style="padding-left: 15px; padding-right: 15px;" ng-if="!hasOrdered")
+            li.btn-success.pull-right(ng-if="!hasOrdered")
                 a(href="/basket" style="color: #fff")
                   i.fa.fa-shopping-cart.fa-fw
                   | &nbsp;

@@ -6,7 +6,7 @@ module.exports = [
         id: 1,
         name: 'Patates bravas',
         description: 'Diced potates with spicy chilli tomato sause & aioli',
-        price: 1.5,
+        price: 6,
         image: "patates_bravas.jpg",
         attrs: ['v', 'g']
       }, {
@@ -20,6 +20,7 @@ module.exports = [
         name: 'Champinones al ajiool',
         description: 'Sautéed button mushrooms with garlic and parsley',
         image: "champinones.jpg",
+        price: 4,
         attrs: ['v']
       }, {
         id: 4,
@@ -37,6 +38,7 @@ module.exports = [
         id: 6,
         name: 'Lentejas',
         description: 'Slow cooked Spanish brown lentils with chorizo',
+        price: 5,
         image: "lentejas.jpg",
         attrs: ['g']
       }, {
@@ -60,6 +62,7 @@ module.exports = [
         id: 10,
         name: 'Pollo y chorizo con patatas',
         description: 'Small pieces of chicken, chorizo, potatoes sautéed with onion, pepper, white w',
+        price: 12,
         attrs: ['g']
       }, {
         id: 11,
@@ -86,6 +89,7 @@ module.exports = [
         name: 'Pulpo a la Gallega',
         description: 'Chopped octopus legs served with boiled potatoes topped with olive oil, paprika ',
         image: "pulpo.jpg",
+        price: 4,
         attrs: ['g']
       }, {
         id: 16,
@@ -109,6 +113,7 @@ module.exports = [
         name: 'Paella de verduras ',
         description: 'Vegetarian paella of fresh seasonal vegetables',
         attrs: ['v', 'g'],
+        price: 16,
         image: "paella-de-verduras.jpg"
       }, {
         id: 20,

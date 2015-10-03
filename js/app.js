@@ -1,4 +1,4 @@
-var app = angular.module('tapas', ['LocalStorageModule']);
+var app = angular.module('tapas', ['LocalStorageModule', 'ui.bootstrap']);
 
 app.config(function (localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('tapas');
@@ -26,14 +26,14 @@ app.controller('BasketCtrl', function ($scope, $http, basketService, localStorag
 
 	$scope.saveCustomer = function () {
 		localStorageService.set('customer', JSON.stringify($scope.customer));
-	}
+	};
 
 	$scope.submitOrder = function () {
 		var items = [];
 		for (var i = 0; i < basketService.items.length; i++) {
 			items.push({
 				id: basketService.items[i].id,
-				quantity: basketService.items[i].quantity,
+				quantity: basketService.items[i].quantity
 			});
 		}
 
@@ -68,7 +68,7 @@ app.service('basketService', function ($http, localStorageService) {
 		self.items.forEach(function (item) {
 			self.totalItems += item.quantity;
 		});
-	}
+	};
 
 	this.calculateTotal();
 
@@ -78,7 +78,7 @@ app.service('basketService', function ($http, localStorageService) {
 				item.obj = obj;
 			});
 		});
-	}
+	};
 
 	this.remove = function (item) {
 		for (var i = 0; i < self.items.length; i++) {
@@ -89,7 +89,7 @@ app.service('basketService', function ($http, localStorageService) {
 				return;
 			}
 		}
-	}
+	};
 
 	this.addItem = function (id) {
 		var found = false;
@@ -112,12 +112,12 @@ app.service('basketService', function ($http, localStorageService) {
 		}
 
 		self.save();
-	}
+	};
 
 	this.save = function () {
 		self.calculateTotal();
 		localStorageService.set('basket_items', JSON.stringify(self.items));
-	}
+	};
 
 	this.items.forEach(function (item) {
 		if (!item.id) {

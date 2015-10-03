@@ -1,0 +1,44 @@
+extend top
+
+block body
+    div(ng-controller="AdminCtrl")
+        .container.food-menu
+            h1.text-center: strong Tapas Admin
+            .col-md-10.col-md-offset-1.col-xs-12
+                a.btn.btn-success(ng-click="addItem()")
+                    i.fa.fa-plus
+                    |  Add item
+                a.btn.btn-info(ng-click="manageSections()")
+                    i.fa.fa-bars
+                    |  Manage sections
+                a.btn.btn-warning(ng-click="orderLogs()")
+                    i.fa.fa-info
+                    |  Order logs
+                a.btn.btn-danger.pull-right(href="/logout")
+                    i.fa.fa-sign-out
+                    |  Log Out
+                table.table-bordered.table
+                    for section in sections
+                        tr.text-center: td(colspan=4): h1= section.name
+                        tr
+                            td.col-xs-1 ID#
+                            td.col-xs-6 Name
+                            td.col-xs-2 Price
+                            td.col-xs-3 Actions
+                        for item, index in section.items
+                            tr
+                                td=item.id
+                                td=item.name
+                                td
+                                    if item.price
+                                        i.fa.fa-gbp
+                                        =" "+item.price.toFixed(2)
+                                    else
+                                        strong.text-danger None
+                                td
+                                    a.btn.btn-warning(ng-click="editItem(#{item.id})")
+                                        i.fa.fa-fw.fa-edit
+                                        | Edit
+                                    a.btn.btn-danger(ng-click="deleteItem(#{item.id})")
+                                        i.fa.fa-fw.fa-times
+                                        | Delete

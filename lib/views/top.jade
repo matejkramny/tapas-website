@@ -27,7 +27,7 @@ html(lang="en" ng-app="tapas")
           a.navbar-brand: img(src="/img/logo.png")
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-text
-            for section in sections
+            //for section in sections
               li: a(href="/#"+section.name.replace(/\s+/g, '-').toLowerCase())=section.name
             br.visible-xs
 
@@ -42,6 +42,5 @@ html(lang="en" ng-app="tapas")
                   i.fa.fa-cogs.fa-fw
     if promo && !session.admin
       .container.marketing
-        a(href=promo)
-          img.marketing-img(src="img/promo.png" alt="")
+        img.marketing-img(src="img/promo.png", alt="")
     block body

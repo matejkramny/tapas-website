@@ -1,0 +1,42 @@
+.modal-header
+    h3.modal-title Add item
+.modal-body
+    form(name="itemForm")
+        .form-group
+            .input-group
+                .input-group-addon ID#
+                input.form-control(type="number", required, ng-model="item.order")
+        .form-group
+            .input-group
+                .input-group-addon Name
+                input.form-control(type="text", required, ng-model="item.name")
+        .form-group
+            .input-group
+                .input-group-addon Description
+                textarea.form-control(required, ng-model="item.description")
+        .form-group
+            .input-group
+                .input-group-addon Price
+                input.form-control(type="number", min=0.00, step=0.01, required, ng-model="item.price")
+                .input-group-addon: i.fa.fa-gbp
+        .form-group
+            .input-group
+                .input-group-addon Image
+                span.btn.btn-info.btn-file.form-control Browse
+                    input(type="file", name="image")
+        .form-group
+            .btn-group.input-group
+                .input-group-addon Attributes
+                .btn.btn-attr(ng-class="{'btn-success': item.vegan, 'btn-danger': !item.vegan}", ng-click="toggleVegan()"): span.vegetarian
+                .btn.btn-attr(ng-class="{'btn-success': item.gluten_free, 'btn-danger': !item.gluten_free}", ng-click="toggleGlutenFree()"): span.gluten-free
+            input(type="hidden", name="vegan", ng-value="item.vegan")
+            input(type="hidden", name="glutenFree", ng-value="item.gluten_free")
+            input(type="hidden", name="section", ng-value="section")
+.modal-footer
+    .btn-group
+        button.btn.btn-danger(type='button', ng-click='cancel()')
+            i.fa.fa-times
+            |  Cancel
+        button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="itemForm.$invalid")
+            i.fa.fa-check
+            |  Submit

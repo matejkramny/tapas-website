@@ -7,9 +7,6 @@ block body
             .col-md-10.col-md-offset-1.col-xs-12
                 .col-xs-12.text-center.form-group
                     .btn-group
-                        a.btn.btn-success(ng-click="addItem()")
-                            i.fa.fa-plus
-                            |  Add item
                         a.btn.btn-info(ng-click="manageSections()")
                             i.fa.fa-bars
                             |  Manage sections
@@ -22,29 +19,32 @@ block body
                         a.btn.btn-danger(href="/logout")
                             i.fa.fa-sign-out
                             |  Log Out
-                table.table-bordered.table
-                    for section in sections
-                        tr.text-center: td(colspan=4): h1: strong= section.name
-                        tr
-                            td.col-xs-1 ID#
-                            td.col-xs-6 Name
-                            td.col-xs-2 Price
-                            td.col-xs-3 Actions
-                        for item, index in section.items
-                            tr
-                                td: strong=item.id
-                                td: strong=item.name
-                                td
-                                    if item.price
-                                        i.fa.fa-gbp
-                                        strong=" "+item.price.toFixed(2)
-                                    else
-                                        strong.text-danger None
-                                td
-                                    .btn-group
-                                        a.btn.btn-warning(ng-click="editItem(#{item.id})")
-                                            i.fa.fa-fw.fa-edit
-                                            | Edit
-                                        a.btn.btn-danger(ng-click="deleteItem(#{item.id})")
-                                            i.fa.fa-fw.fa-times
-                                            | Delete
+                table.table-bordered.table(ng-repeat="section in sections track by $index")
+                    tr.text-center
+                        td(colspan=3): h1: strong(title="{{section._id}}") {{ section.name }}
+                        td: a.btn.btn-success(ng-click="addItem(section._id)")
+                            i.fa.fa-plus
+                            |  Add item
+                    tr
+                        td.col-xs-1 ID#
+                        td.col-xs-6 Name
+                        td.col-xs-2 Price
+                        td.col-xs-3 Actions
+                    tr(ng-repeat="item in section.items track by $index")
+                        td: strong {{ item.order }}
+                        td: strong(title="{{item._id}}") {{ item.name }}
+                        td: strong {{ item.price | currency:"£ " }}
+                        td
+                            .btn-group
+                                a.btn.btn-warning(ng-click="editItem(item)")
+                                    i.fa.fa-fw.fa-edit
+                                    | Edit
+                                a.btn.btn-danger(ng-click="deleteItem(item._id)")
+                                    i.fa.fa-fw.fa-times
+                                    | Delete
+    script(type="text/ng-template", id="addItem")
+        include partials/additem
+    script(type="text/ng-template", id="editItem")
+        include partials/edititem
+    script(type="text/ng-template", id="sections")
+        include partials/sections

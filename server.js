@@ -1,8 +1,8 @@
-var app = require('express')();
-var menu = require('./menu');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var express = require('express'),
+  app = express(),
+  menu = require('./menu'),
+  bodyParser = require('body-parser'),
+  mongoose = require('mongoose');
 
 app.enable('trust proxy');
 app.set('views', __dirname + '/views');
@@ -11,8 +11,8 @@ app.set('x-powered-by', false);
 
 app.use(require('morgan')('dev'));
 app.use(require('serve-static')(__dirname));
-app.use(cookieParser());
-app.use(session({
+app.use(require('cookie-parser')());
+app.use(require('express-session')({
   secret: "d2cd6fefd08f4b7220218cc694982d1b",
   resave: true,
   saveUninitialized: true
@@ -46,6 +46,7 @@ app.get('/', function(req, res) {
       }
     }
   }
+
   res.status(404).end();
 })
 
@@ -53,54 +54,60 @@ app.get('/', function(req, res) {
   // submit order
   res.status(204).end();
 }).get('/login', function(req, res) {
-  if(req.session.admin){
-    res.redirect('/admin')
-  } else {
-    res.render('login');
+  if (req.session.admin){
+    return res.redirect('/admin')
   }
-}).get('/admin', function(req, res) {
-  if (req.session.admin) {
-    res.render('admin')
-  } else {
-    res.redirect('/login')
-  }
-}).post('/login', function(req, res) {
-  if(req.body.username=="admin" && req.body.password=="admin"){
-    req.session.admin=true;
-    res.redirect('/admin')
-  } else {
-    res.render('login', {error: true})
-  }
-}).get('/logout', function(req, res) {
-  req.session.admin=false;
-  res.redirect('/')
-}).get('/admin/additem', function(req, res) {
-  if(req.session.admin){
-    res.render('admin-additem');
-  }
-}).get('/admin/logs', function(req, res) {
-  if(req.session.admin){
-    res.render('admin-logs');
-  }
-}).get('/admin/item/:item_id', function(req, res) {
-  if(req.session.admin){
-    for (var section = 0; section < menu.length; section++) {
-      var m = menu[section];
-      for (var item = 0; item < m.items.length; item++) {
-        if (m.items[item].id == req.params.item_id) {
-          var _item = m.items[item];
 
-          if (!_item.price) {
-            _item.price = 0;
-          }
-          console.log(_item);
-          return res.render('admin-edititem', {item: _item});
+  res.render('login');
+}).post('/login', function(req, res) {
+  if (req.body.username=="admin" && req.body.password=="admin"){
+    req.session.admin=true;
+    return res.redirect('/admin')
+  }
+
+  res.render('login', {error: true})
+}).get('/logout', function(req, res) {
+  req.session.admin = false;
+  res.redirect('/')
+})
+
+var admin = express.Router();
+admin.get('/', function(req, res) {
+  res.render('admin')
+});
+
+admin.get('/additem', function(req, res) {
+ res.render('admin-additem');
+});
+
+admin.get('/admin/logs', function(req, res) {
+  res.render('admin-logs');
+});
+
+admin.get('/admin/item/:item_id', function(req, res) {
+  for (var section = 0; section < menu.length; section++) {
+    var m = menu[section];
+    for (var item = 0; item < m.items.length; item++) {
+      if (m.items[item].id == req.params.item_id) {
+        var _item = m.items[item];
+
+        if (!_item.price) {
+          _item.price = 0;
         }
+
+        return res.render('admin-edititem', {item: _item});
       }
     }
-  res.status(404).end();
   }
 });
+
+app.use('/admin', function (req, res, next) {
+  if (req.session.admin) {
+    return next();
+  }
+
+  res.redirect('/login');
+}, admin);
 
 require('http').createServer(app).listen(process.env.PORT || 3000, function () {
   console.log('listening to :'+(process.env.PORT || 3000));

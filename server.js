@@ -13,7 +13,7 @@ app.use(require('morgan')('dev'));
 app.use(require('serve-static')(__dirname));
 app.use(cookieParser());
 app.use(session({
-  secret: "Tapas",
+  secret: "d2cd6fefd08f4b7220218cc694982d1b",
   resave: true,
   saveUninitialized: true
 }));
@@ -69,11 +69,37 @@ app.get('/', function(req, res) {
     req.session.admin=true;
     res.redirect('/admin')
   } else {
-    res.redirect('/login')
+    res.render('login', {error: true})
   }
 }).get('/logout', function(req, res) {
   req.session.admin=false;
   res.redirect('/')
+}).get('/admin/additem', function(req, res) {
+  if(req.session.admin){
+    res.render('admin-additem');
+  }
+}).get('/admin/logs', function(req, res) {
+  if(req.session.admin){
+    res.render('admin-logs');
+  }
+}).get('/admin/item/:item_id', function(req, res) {
+  if(req.session.admin){
+    for (var section = 0; section < menu.length; section++) {
+      var m = menu[section];
+      for (var item = 0; item < m.items.length; item++) {
+        if (m.items[item].id == req.params.item_id) {
+          var _item = m.items[item];
+
+          if (!_item.price) {
+            _item.price = 0;
+          }
+          console.log(_item);
+          return res.render('admin-edititem', {item: _item});
+        }
+      }
+    }
+  res.status(404).end();
+  }
 });
 
 require('http').createServer(app).listen(process.env.PORT || 3000, function () {

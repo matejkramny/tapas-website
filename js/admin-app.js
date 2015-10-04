@@ -7,7 +7,7 @@ app.controller('AdminCtrl', ['$scope', '$modal', '$window', function ($scope, $m
     $scope.deleteItem = function(id){
         if ($window.confirm("Are you sure you would like to delete this item?")) {
             //TODO Make actionable delete in admin
-            alert("WIP, This will delte item "+id);
+            alert("WIP, item #"+id);
         }
     };
     $scope.addItem = function(){

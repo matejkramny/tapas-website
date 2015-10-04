@@ -1,0 +1,18 @@
+.modal-header
+    h3.modal-title Edit item
+.modal-body
+    .form-group
+        .input-group
+            .input-group-addon Name
+            input.form-control(type="text", name="name", value=item.name)
+    .form-group
+        .input-group
+            .input-group-addon Description
+            textarea.form-control(name="description")=item.description
+    .form-group
+        .input-group
+            .input-group-addon Price
+            input.form-control(type="number", min=0.00, step=0.01, name="name", value=item.price.toFixed(2))
+            .input-group-addon: i.fa.fa-gbp
+.modal-footer
+    button.btn.btn-success(type='button', ng-click='submit()') Submit

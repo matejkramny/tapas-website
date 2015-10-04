@@ -4,7 +4,17 @@ block body
     .container
         .food-menu.col-xs-12.col-md-4.col-md-offset-4
             h1.text-center: strong Admin login
-            form(action="/login" method="POST")
-                input.form-control(type="text" name="username" placeholder="Username")
-                input.form-control(type="password" name="password" placeholder="Password")
-                input(type="submit" value="Log in").btn.btn-success.form-control
+            .col-xs-10.col-xs-offset-1
+                form(action="/login" method="POST")
+                    if error
+                        .alert.alert-danger
+                            strong Nope!
+                            |  Wrong login, mate!
+                    .form-group
+                        input.form-control(type="text" name="username" placeholder="Username")
+                    .form-group
+                        input.form-control(type="password" name="password" placeholder="Password")
+                    .form-group
+                        button(type="submit").btn.btn-success.col-xs-6.col-xs-offset-3.text-center
+                            i.fa.fa-sign-in
+                            strong  Log in

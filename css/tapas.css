@@ -6,6 +6,7 @@ body {
   padding-bottom: 20px;
   padding-top: 60px;
   background-attachment: fixed;
+  overflow-y: scroll !important;
 }
 
 .navbar-inverse .navbar-nav>li>a {

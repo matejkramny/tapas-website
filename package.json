@@ -2,7 +2,7 @@
   "name": "tapas",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "lib/server.js",
   "dependencies": {
     "angular": "^1.4.1",
     "async": "^1.4.2",
@@ -18,7 +18,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node lib/server.js"
   },
   "repository": {
     "type": "git",

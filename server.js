@@ -28,15 +28,13 @@ app.use(function(req,res,next){
   next();
 });
 
-app.get('/', function(req, res) {
-  res.render('index');
-}).get('/basket', function(req, res) {
-  res.render('basket');
-}).get('/promo', function(req, res) {
-  res.render('promo');
-}).get('/confirm', function(req, res) {
-  res.render('confirm');
-}).get('/item/:item_id', function(req, res) {
+['', 'basket', 'promo', 'confirm', 'login'].forEach(function (page) {
+  app.get('/' + page, function (req, res) {
+    res.render(page == '' ? 'index' : page);
+  });
+});
+
+app.get('/item/:item_id', function(req, res) {
   for (var section = 0; section < menu.length; section++) {
     var m = menu[section];
     for (var item = 0; item < m.items.length; item++) {
@@ -54,48 +52,29 @@ app.get('/', function(req, res) {
 
   res.status(404).end();
 })
-
 .post('/order', function (req, res) {
   // submit order
   res.status(204).end();
-}).get('/login', function(req, res) {
-  if (req.session.admin){
-    return res.redirect('/admin')
-  }
-
-  res.render('login');
-}).post('/login', function(req, res) {
+})
+.post('/login', function(req, res) {
   if (req.body.username=="admin" && req.body.password=="admin"){
     req.session.admin=true;
     return res.redirect('/admin')
   }
 
   res.render('login', {error: true})
-}).get('/logout', function(req, res) {
+})
+.get('/logout', function(req, res) {
   req.session.admin = false;
   res.redirect('/')
 })
 
 var admin = express.Router();
-admin.get('/', function(req, res) {
-  res.render('admin')
+['', 'additem', 'logs', 'sections', 'printout'].forEach(function (page) {
+  admin.get('/' + page, function (req, res) {
+    res.render('admin/' + (page == '' ? 'index' : page));
+  });
 });
-
-admin.get('/additem', function(req, res) {
- res.render('admin-additem');
-});
-
-admin.get('/logs', function(req, res) {
-  res.render('admin-logs');
-});
-
-admin.get('/sections', function (req, res) {
-  res.render('admin-sections');
-});
-
-admin.get('/printout', function (reg, res) {
-  res.render('printout')
-})
 
 admin.get('/item/:item_id', function(req, res) {
   for (var section = 0; section < menu.length; section++) {
@@ -112,7 +91,7 @@ admin.get('/item/:item_id', function(req, res) {
           _item.attrs=[];
         }
 
-        return res.render('admin-edititem', {item: _item});
+        return res.render('admin/edititem', {item: _item});
       }
     }
   }

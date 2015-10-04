@@ -82,9 +82,10 @@ img{
   text-indent: -9999px;
   display: inline-block;
   height: 36px;
-  width: 36px;
+  width: 34px;
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
   background-image: url(../img/vegetarian-mark.svg);
 }
 
@@ -95,6 +96,7 @@ img{
   width: 36px;
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
   filter: invert(100%);
   -webkit-filter: invert(100%);
   background-image: url(../img/icon-glutenfree.png);
@@ -257,4 +259,29 @@ a.top {
 
 .control-label {
   padding-right: 5px;
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+.btn-attr {
+  line-height: 1 !important;
 }

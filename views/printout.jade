@@ -1,0 +1,41 @@
+extend top
+
+block body
+    .container.food-menu
+        h1.text-center: strong Tapas Food Menu
+        .col-xs-12.text-center
+            button.btn.btn-info.btn-lg(onclick="window.print()")
+                i.fa.fa-print
+                |  Print
+        for section in sections
+            h1.text-center: strong=section.name
+            table.table.table-bordered
+                thead
+                    tr
+                        td ID
+                        td Name
+                        td Price
+                tbody
+                    for item, index in section.items
+                        tr
+                            td=item.id
+                            td=item.name
+                            td: if item.price
+                                ="£ "+item.price.toFixed(2)
+        .col-xs-12.text-center
+            button.btn.btn-info.btn-lg(onclick="window.print()")
+                i.fa.fa-print
+                |  Print
+    style.
+        @media print {
+            thead {display: table-header-group;}
+            button {
+                display: none !important;
+            }
+            nav {
+                display: none;
+            }
+            td {
+                padding: 0 !important;
+            }
+        }

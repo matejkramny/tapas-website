@@ -23,6 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.locals.sections = menu;
 app.locals.promo = false;
 
+app.use(function(req,res,next){
+  res.locals.session = req.session;
+  next();
+});
+
 app.get('/', function(req, res) {
   res.render('index');
 }).get('/basket', function(req, res) {
@@ -84,6 +89,14 @@ admin.get('/logs', function(req, res) {
   res.render('admin-logs');
 });
 
+admin.get('/sections', function (req, res) {
+  res.render('admin-sections');
+});
+
+admin.get('/printout', function (reg, res) {
+  res.render('printout')
+})
+
 admin.get('/item/:item_id', function(req, res) {
   for (var section = 0; section < menu.length; section++) {
     var m = menu[section];
@@ -93,6 +106,10 @@ admin.get('/item/:item_id', function(req, res) {
 
         if (!_item.price) {
           _item.price = 0;
+        }
+
+        if(!_item.attrs) {
+          _item.attrs=[];
         }
 
         return res.render('admin-edititem', {item: _item});

@@ -16,6 +16,9 @@ block body
                         a.btn.btn-warning(ng-click="orderLogs()")
                             i.fa.fa-info
                             |  Order logs
+                        a.btn.btn-info(href="/admin/printout", target="_blank")
+                            i.fa.fa-print
+                            |  Generate printout
                         a.btn.btn-danger(href="/logout")
                             i.fa.fa-sign-out
                             |  Log Out
@@ -30,7 +33,7 @@ block body
                         for item, index in section.items
                             tr
                                 td: strong=item.id
-                                td=item.name
+                                td: strong=item.name
                                 td
                                     if item.price
                                         i.fa.fa-gbp

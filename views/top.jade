@@ -1,20 +1,20 @@
 doctype
 html(lang="en" ng-app="tapas")
   head
-    meta(charset="UTF-8")
+    meta(charset="UTF-16")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title Tapas
-    link(rel="stylesheet" href="css/bootstrap.min.css")
-    link(rel="stylesheet" href="css/tapas.css")
-    link(rel="stylesheet" href="css/font-awesome.min.css")
+    link(rel="stylesheet" href="/css/bootstrap.min.css")
+    link(rel="stylesheet" href="/css/tapas.css")
+    link(rel="stylesheet" href="/css/font-awesome.min.css")
 
-    script(src="js/jquery.min.js")
-    script(src="js/bootstrap.min.js")
-    script(src="js/angular.min.js")
-    script(src="js/angular-local-storage.min.js")
-    script(src="js/app.js")
-    script(src="js/ui-bootstrap.min.js")
-    script(src="js/admin-app.js")
+    script(src="/js/jquery.min.js")
+    script(src="/js/bootstrap.min.js")
+    script(src="/js/angular.min.js")
+    script(src="/js/angular-local-storage.min.js")
+    script(src="/js/app.js")
+    script(src="/js/ui-bootstrap.min.js")
+    script(src="/js/admin-app.js")
   body
     nav.navbar.navbar-fixed-top.navbar-inverse
       .container
@@ -24,7 +24,7 @@ html(lang="en" ng-app="tapas")
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand: img(src="img/logo.png")
+          a.navbar-brand: img(src="/img/logo.png")
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-text
             for section in sections
@@ -32,11 +32,15 @@ html(lang="en" ng-app="tapas")
             br.visible-xs
 
             li.btn-success.pull-right(ng-if="!hasOrdered")
-                a(href="/basket" style="color: #fff")
-                  i.fa.fa-shopping-cart.fa-fw
-                  | &nbsp;
-                  span(ng-bind="basket.totalItems") 0
-    if promo
+              a(href="/basket" style="color: #fff")
+                i.fa.fa-shopping-cart.fa-fw
+                | &nbsp;
+                span(ng-bind="basket.totalItems") 0
+            if session.admin
+              li.btn-danger.pull-right
+                a(href="/admin")
+                  i.fa.fa-cogs.fa-fw
+    if promo && !session.admin
       .container.marketing
         a(href=promo)
           img.marketing-img(src="img/promo.png" alt="")

@@ -1,18 +1,37 @@
 .modal-header
     h3.modal-title Edit item
-.modal-body
-    .form-group
-        .input-group
-            .input-group-addon Name
-            input.form-control(type="text", name="name", value=item.name)
-    .form-group
-        .input-group
-            .input-group-addon Description
-            textarea.form-control(name="description")=item.description
-    .form-group
-        .input-group
-            .input-group-addon Price
-            input.form-control(type="number", min=0.00, step=0.01, name="name", value=item.price.toFixed(2))
-            .input-group-addon: i.fa.fa-gbp
+.modal-body(ng-init="isVegan=#{item.attrs.indexOf('v')!=-1};isGlutenFree=#{item.attrs.indexOf('g')!=-1}")
+    form(name="item")
+        .form-group
+            .input-group
+                .input-group-addon Name
+                input.form-control(type="text", name="name", value=item.name, required)
+        .form-group
+            .input-group
+                .input-group-addon Description
+                textarea.form-control(name="description", required)=item.description
+        .form-group
+            .input-group
+                .input-group-addon Price
+                input.form-control(type="number", min=0.00, step=0.01, name="price", value=item.price.toFixed(2), required)
+                .input-group-addon: i.fa.fa-gbp
+        .form-group
+            .input-group
+                .input-group-addon Image
+                span.btn.btn-info.btn-file.form-control Browse
+                    input(type="file", name="image")
+        .form-group
+            .btn-group.input-group
+                .input-group-addon Attributes
+                .btn.btn-attr(ng-class="{'btn-success': isVegan, 'btn-danger': !isVegan}", ng-click="toggleVegan()"): span.vegetarian
+                .btn.btn-attr(ng-class="{'btn-success': isGlutenFree, 'btn-danger': !isGlutenFree}", ng-click="toggleGlutenFree()"): span.gluten-free
+            input(type="hidden", name="vegan", ng-value="isVegan")
+            input(type="hidden", name="glutenFree", ng-value="isGlutenFree")
 .modal-footer
-    button.btn.btn-success(type='button', ng-click='submit()') Submit
+    .btn-group
+        button.btn.btn-danger(type='button', ng-click='cancel()')
+            i.fa.fa-times
+            |  Cancel
+        button.btn.btn-success(type='button', ng-click='ok()')
+            i.fa.fa-check
+            |  Submit

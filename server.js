@@ -80,11 +80,11 @@ admin.get('/additem', function(req, res) {
  res.render('admin-additem');
 });
 
-admin.get('/admin/logs', function(req, res) {
+admin.get('/logs', function(req, res) {
   res.render('admin-logs');
 });
 
-admin.get('/admin/item/:item_id', function(req, res) {
+admin.get('/item/:item_id', function(req, res) {
   for (var section = 0; section < menu.length; section++) {
     var m = menu[section];
     for (var item = 0; item < m.items.length; item++) {

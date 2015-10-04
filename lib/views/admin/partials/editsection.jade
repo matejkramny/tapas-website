@@ -1,3 +1,20 @@
-//
-   Created by anze on 04/10/15.
-
+.modal-header
+    h3 Edit section
+.modal-body
+    form(name="sectionForm")
+        .form-group
+            .input-group
+                .input-group-addon ID#
+                input.form-control(type="number", min=0, ng-model="section.order")
+        .form-group
+            .input-group
+                .input-group-addon Name
+                input.form-control(type="text", ng-model="section.name")
+.modal-footer
+    .btn-group
+        button.btn.btn-danger(type='button', ng-click='cancel()')
+            i.fa.fa-times
+            |  Cancel
+        button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="sectionForm.$invalid")
+            i.fa.fa-check
+            |  Submit

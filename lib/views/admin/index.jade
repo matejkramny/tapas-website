@@ -7,9 +7,9 @@ block body
             .col-md-10.col-md-offset-1.col-xs-12
                 .col-xs-12.text-center.form-group
                     .btn-group
-                        a.btn.btn-info(ng-click="manageSections()")
-                            i.fa.fa-bars
-                            |  Manage sections
+                        a.btn.btn-success(ng-click="addSection()")
+                            i.fa.fa-plus
+                            |  Add section
                         a.btn.btn-warning(ng-click="orderLogs()")
                             i.fa.fa-info
                             |  Order logs
@@ -21,10 +21,18 @@ block body
                             |  Log Out
                 table.table-bordered.table(ng-repeat="section in sections track by $index")
                     tr.text-center
-                        td(colspan=3): h1: strong(title="{{section._id}}") {{ section.name }}
-                        td: a.btn.btn-success(ng-click="addItem(section._id)")
-                            i.fa.fa-plus
-                            |  Add item
+                        td(colspan=2): h1: strong(title="{{section._id}}") {{ section.name }}
+                        td(colspan=2)
+                            .btn-group
+                                a.btn.btn-success(ng-click="addItem(section._id)")
+                                    i.fa.fa-plus
+                                    |  Add item
+                                a.btn.btn-info(ng-click="editSection(section)")
+                                    i.fa.fa-edit
+                                    |  Edit section
+                                a.btn.btn-danger(ng-click="deleteSection(section._id)")
+                                    i.fa.fa-trash
+                                    |  Delete section
                     tr
                         td.col-xs-1 ID#
                         td.col-xs-6 Name
@@ -46,5 +54,7 @@ block body
         include partials/additem
     script(type="text/ng-template", id="editItem")
         include partials/edititem
-    script(type="text/ng-template", id="sections")
-        include partials/sections
+    script(type="text/ng-template", id="addsection")
+        include partials/addsection
+    script(type="text/ng-template", id="editsection")
+        include  partials/editsection

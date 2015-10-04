@@ -13,7 +13,7 @@
         .form-group
             .input-group
                 .input-group-addon Description
-                textarea.form-control(name="description", required, ng-model="item.name")
+                textarea.form-control(name="description", required, ng-model="item.description")
         .form-group
             .input-group
                 .input-group-addon Price
@@ -37,6 +37,6 @@
         button.btn.btn-danger(type='button', ng-click='cancel()')
             i.fa.fa-times
             |  Cancel
-        button.btn.btn-success(type='button', ng-click='ok()')
+        button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="itemForm.$invalid")
             i.fa.fa-check
             |  Submit

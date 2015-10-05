@@ -28,7 +28,8 @@ html(lang="en" ng-app="tapas")
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-text
             for section in sections
-              li: a(href="/#"+section.name.replace(/\s+/g, '-').toLowerCase())=section.name
+              unless section.hidden
+                li: a(href="/#"+section.name.replace(/\s+/g, '-').toLowerCase())=section.name
             br.visible-xs
 
             li.btn-success.pull-right(ng-if="!hasOrdered")

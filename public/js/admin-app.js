@@ -86,7 +86,6 @@ app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', function ($s
 
     $scope.ok = function () {
         $modalInstance.close($scope.item);
-        $scope.refresh();
     };
 
     $scope.toggleVegan = function () {
@@ -96,9 +95,16 @@ app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', function ($s
     $scope.toggleGlutenFree = function () {
         $scope.item.gluten_free=!$scope.item.gluten_free
     }
+
+    $scope.toggleHidden = function () {
+        $scope.item.hidden=!$scope.item.hidden
+    }
 }]);
 app.controller('AddItemInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
-
+    $scope.item={};
+    $scope.item.vegan=false;
+    $scope.item.gluten_free=false;
+    $scope.item.hidden=false;
     $scope.ok = function () {
         $modalInstance.close($scope.item);
     };
@@ -113,10 +119,15 @@ app.controller('AddItemInstanceCtrl', ['$scope', '$modalInstance', function ($sc
 
     $scope.toggleGlutenFree = function () {
         $scope.item.gluten_free=!$scope.item.gluten_free
+    };
+
+    $scope.toggleHidden = function () {
+        $scope.item.hidden=!$scope.item.hidden
     }
 }]);
 app.controller('AddSectionInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
-
+    $scope.section={};
+    $scope.section.hidden = false;
     $scope.ok = function () {
         $modalInstance.close($scope.section);
     };
@@ -125,12 +136,20 @@ app.controller('AddSectionInstanceCtrl', ['$scope', '$modalInstance', function (
         $modalInstance.dismiss();
     };
 
+    $scope.toggleHidden = function () {
+        $scope.section.hidden=!$scope.section.hidden
+    }
+
 }]);
 app.controller('EditSectionInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
     $scope.ok = function () {
         $modalInstance.close($scope.section);
     };
+
+    $scope.toggleHidden = function () {
+        $scope.section.hidden=!$scope.section.hidden
+    }
 
 }]);
 app.service('API', ['$http', function($http){

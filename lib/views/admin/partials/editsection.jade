@@ -10,6 +10,11 @@
             .input-group
                 .input-group-addon Name
                 input.form-control(type="text", ng-model="section.name")
+        .form-group
+            .btn-group.input-group
+                .input-group-addon Hidden
+                .btn.btn-attr(ng-class="{'btn-success': section.hidden, 'btn-danger': !section.hidden}", ng-click="toggleHidden()"): i.fa(ng-class="{'fa-check': section.hidden, 'fa-times': !section.hidden}")
+        input(type="hidden", name="hidden", ng-value="section.hidden")
 .modal-footer
     button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="sectionForm.$invalid")
         i.fa.fa-check

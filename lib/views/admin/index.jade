@@ -21,7 +21,9 @@ block body
                             |  Log Out
                 table.table-bordered.table(ng-repeat="section in sections track by $index")
                     tr.text-center
-                        td(colspan=2): h1.no-margin: strong(title="{{section._id}}") {{ section.name }}
+                        td(colspan=2): h1.no-margin
+                            strong(title="{{section._id}}") {{ section.name }}
+                            |  (\#{{ section.order }})
                         td(colspan=2, style="vertical-align: middle;")
                             .btn-group
                                 a.btn.btn-success(ng-click="addItem(section._id)")
@@ -34,7 +36,7 @@ block body
                                     i.fa.fa-trash
                                     |  Delete section
                     tr
-                        td.col-xs-1 ID#
+                        td.col-xs-1 Order #
                         td.col-xs-6 Name
                         td.col-xs-2 Price
                         td.col-xs-3 Actions

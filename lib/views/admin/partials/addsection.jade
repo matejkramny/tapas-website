@@ -4,13 +4,17 @@
     form(name="sectionForm")
         .form-group
             .input-group
-                .input-group-addon ID#
-                input.form-control(type="number", min=0, ng-model="section.order")
+                .input-group-addon Order #
+                input.form-control(type="number", min=0, required, ng-model="section.order")
         .form-group
             .input-group
                 .input-group-addon Name
-                input.form-control(type="text", ng-model="section.name")
+                input.form-control(type="text", required, ng-model="section.name")
 .modal-footer
-    button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="itemForm.$invalid")
-        i.fa.fa-check
-        |  Submit
+    .btn-group
+        button.btn.btn-danger(type='button', ng-click='cancel()')
+            i.fa.fa-times
+            |  Cancel
+        button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="sectionForm.$invalid")
+            i.fa.fa-check
+            |  Submit

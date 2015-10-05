@@ -4,7 +4,7 @@
     form(name="itemForm")
         .form-group
             .input-group
-                .input-group-addon ID#
+                .input-group-addon Order #
                 input.form-control(type="number", required, ng-model="item.order")
         .form-group
             .input-group
@@ -33,6 +33,10 @@
             input(type="hidden", name="glutenFree", ng-value="item.gluten_free")
             input(type="hidden", name="section", ng-value="section")
 .modal-footer
-    button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="itemForm.$invalid")
-        i.fa.fa-check
-        |  Submit
+    .btn-group
+        button.btn.btn-danger(type='button', ng-click='cancel()')
+            i.fa.fa-times
+            |  Cancel
+        button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="itemForm.$invalid")
+            i.fa.fa-check
+            |  Submit

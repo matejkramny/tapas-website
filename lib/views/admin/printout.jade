@@ -8,17 +8,19 @@ block body
                 i.fa.fa-print
                 |  Print
         for section in sections
-            h1.text-center: strong=section.name
+            h1.text-center
+                strong=section.name
+                |  (##{section.order})
             table.table.table-bordered
                 thead
                     tr
-                        td ID
+                        td ID #
                         td Name
                         td Price
                 tbody
                     for item, index in section.items
                         tr
-                            td=item.id
+                            td=item.order
                             td=item.name
                             td: if item.price
                                 ="£ "+item.price.toFixed(2)

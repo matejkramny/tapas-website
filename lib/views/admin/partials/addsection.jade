@@ -11,10 +11,6 @@
                 .input-group-addon Name
                 input.form-control(type="text", ng-model="section.name")
 .modal-footer
-    .btn-group
-        button.btn.btn-danger(type='button', ng-click='cancel()')
-            i.fa.fa-times
-            |  Cancel
-        button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="sectionForm.$invalid")
-            i.fa.fa-check
-            |  Submit
+    button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="itemForm.$invalid")
+        i.fa.fa-check
+        |  Submit

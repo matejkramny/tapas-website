@@ -285,3 +285,7 @@ a.top {
 .btn-attr {
   line-height: 1 !important;
 }
+
+.no-margin{
+  margin: 0 !important;
+}

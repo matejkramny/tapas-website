@@ -33,10 +33,6 @@
             input(type="hidden", name="glutenFree", ng-value="item.gluten_free")
             input(type="hidden", name="section", ng-value="item.section")
 .modal-footer
-    .btn-group
-        button.btn.btn-danger(type='button', ng-click='cancel()')
-            i.fa.fa-times
-            |  Cancel
-        button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="itemForm.$invalid")
-            i.fa.fa-check
-            |  Submit
+    button.btn.btn-success(type='button', ng-click='ok()', ng-disabled="itemForm.$invalid")
+        i.fa.fa-check
+        |  Submit

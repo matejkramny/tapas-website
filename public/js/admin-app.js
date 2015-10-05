@@ -86,10 +86,7 @@ app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', function ($s
 
     $scope.ok = function () {
         $modalInstance.close($scope.item);
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss();
+        $scope.refresh();
     };
 
     $scope.toggleVegan = function () {
@@ -106,10 +103,6 @@ app.controller('AddItemInstanceCtrl', ['$scope', '$modalInstance', function ($sc
         $modalInstance.close($scope.item);
     };
 
-    $scope.cancel = function () {
-        $modalInstance.dismiss();
-    };
-
     $scope.toggleVegan = function () {
         $scope.item.vegan=!$scope.item.vegan
     };
@@ -124,19 +117,11 @@ app.controller('AddSectionInstanceCtrl', ['$scope', '$modalInstance', function (
         $modalInstance.close($scope.section);
     };
 
-    $scope.cancel = function () {
-        $modalInstance.dismiss();
-    };
-
 }]);
 app.controller('EditSectionInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
     $scope.ok = function () {
         $modalInstance.close($scope.section);
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss();
     };
 
 }]);

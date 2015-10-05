@@ -53,4 +53,5 @@ build/Release
 node_modules
 
 .idea
-*.iml
+
+public/img/products

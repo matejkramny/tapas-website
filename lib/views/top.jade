@@ -26,7 +26,7 @@ html(lang="en" ng-app="tapas")
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand: img(src="/img/logo.png")
+          a.navbar-brand(href="/"): img(src="/img/logo.png")
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-text
             for section in sections
@@ -55,3 +55,7 @@ html(lang="en" ng-app="tapas")
         b Opening hours
         br
         | {{ config.openHours }}
+      .col-xs-12.col-sm-4.btn-toolbar
+        a.btn.btn-social-icon.btn-twitter(ng-show="config.twitter != ''", href="{{ config.twitter }}"): i.fa.fa-twitter
+        a.btn.btn-social-icon.btn-facebook(ng-show="config.facebook != ''", href="{{ config.facebook }}"): i.fa.fa-facebook
+        a.btn.btn-social-icon.btn-instagram(ng-show="config.instagram != ''", href="{{ config.instagram }}"): i.fa.fa-instagram

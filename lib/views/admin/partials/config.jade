@@ -9,17 +9,29 @@
         .form-group
             .input-group
                 .input-group-addon Address
-                textarea.form-control(required, ng-model="config.address", rows=5)
+                textarea.form-control(ng-model="config.address", rows=5)
         .form-group
             .input-group
                 .input-group-addon Opening hours
                 textarea.form-control(required, ng-model="config.openHours", rows=5)
+        .form-group
+            .input-group
+                .input-group-addon Twitter URL
+                input.form-control(type="text", ng-model="config.twitter")
+        .form-group
+            .input-group
+                .input-group-addon Facebook URL
+                input.form-control(type="text", ng-model="config.facebook")
+        .form-group
+            .input-group
+                .input-group-addon Instagram URL
+                input.form-control(type="text", ng-model="config.instagram")
         .form-group
             .btn-group.input-group
                 .input-group-addon Promo
                 .btn.btn-attr(ng-class="{'btn-success': config.promo, 'btn-danger': !config.promo}", ng-click="toggle('promo')"): i.fa(ng-class="{'fa-check': config.promo, 'fa-times': !config.promo}")
         input(type="hidden", name="hidden", ng-value="config.promo")
 .modal-footer
-    a.btn.btn-success(ng-click="ok()")
+    a.btn.btn-success(ng-click="ok()", ng-disabled="configForm.$invalid")
         i.fa.fa-check
         |  Submit

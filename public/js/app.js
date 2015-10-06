@@ -25,7 +25,7 @@ app.controller('configCtrl', ['$scope', 'clientAPI', function($scope, clientAPI)
 			else $scope.config[key] = value;
 		})
 	};
-	var neededVals=['address', 'promo', 'openHours', 'name'];
+	var neededVals=['address', 'promo', 'openHours', 'name', 'twitter', 'facebook', 'instagram'];
 	for (index in neededVals) {
 		getValue([neededVals[index]])
 	}

@@ -24,10 +24,10 @@ block body
                             |  Log Out
                 table.table-bordered.table(ng-repeat="section in sections track by $index")
                     tr.text-center
-                        td(colspan=2): h1.no-margin
+                        td(colspan=2, ng-class="{'hidden-section': section.hidden}"): h1.no-margin
                             strong(title="{{section._id}}") {{ section.name }}
                             |  (\#{{ section.order }})
-                        td(colspan=2, style="vertical-align: middle;")
+                        td(colspan=2)
                             .btn-group
                                 a.btn.btn-success(ng-click="addItem(section._id)")
                                     i.fa.fa-plus
@@ -43,7 +43,7 @@ block body
                         td.col-xs-6 Name
                         td.col-xs-2 Price
                         td.col-xs-3 Actions
-                    tr(ng-repeat="item in section.items track by $index")
+                    tr(ng-repeat="item in section.items track by $index", ng-class="{'hidden-item': item.hidden}")
                         td: strong {{ item.order }}
                         td: strong(title="{{item._id}}") {{ item.name }}
                         td: strong {{ item.price | currency:"£ " }}

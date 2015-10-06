@@ -29,9 +29,14 @@
                 .input-group-addon Attributes
                 .btn.btn-attr(ng-class="{'btn-success': item.vegan, 'btn-danger': !item.vegan}", ng-click="toggleVegan()"): span.vegetarian
                 .btn.btn-attr(ng-class="{'btn-success': item.gluten_free, 'btn-danger': !item.gluten_free}", ng-click="toggleGlutenFree()"): span.gluten-free
-            input(type="hidden", name="vegan", ng-value="item.vegan")
-            input(type="hidden", name="glutenFree", ng-value="item.gluten_free")
-            input(type="hidden", name="section", ng-value="section")
+        .form-group
+            .btn-group.input-group
+                .input-group-addon Hidden
+                .btn.btn-attr(ng-class="{'btn-success': item.hidden, 'btn-danger': !item.hidden}", ng-click="toggleHidden()"): i.fa(ng-class="{'fa-check': item.hidden, 'fa-times': !item.hidden}")
+        input(type="hidden", name="vegan", ng-value="item.vegan")
+        input(type="hidden", name="glutenFree", ng-value="item.gluten_free")
+        input(type="hidden", name="hidden", ng-value="item.hidden")
+        input(type="hidden", name="section", ng-value="section")
 .modal-footer
     .btn-group
         button.btn.btn-danger(type='button', ng-click='cancel()')

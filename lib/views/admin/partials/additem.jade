@@ -20,6 +20,14 @@
                 input.form-control(type="number", min=0.00, step=0.01, required, ng-model="item.price")
                 .input-group-addon: i.fa.fa-gbp
         .form-group
+            .btn-group.input-group
+                .input-group-addon Ingredients
+                .input-group-addon(ng-show="item.ingredients.length == 0") None
+                .input-group-addon
+
+                .input-group-addon
+                    .btn.btn-success: i.fa.fa-plus
+        .form-group
             .input-group
                 .input-group-addon Image
                 span.btn.btn-info.btn-file.form-control Browse

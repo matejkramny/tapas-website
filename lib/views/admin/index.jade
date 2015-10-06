@@ -31,13 +31,13 @@ block body
                             .btn-group
                                 a.btn.btn-success(ng-click="addItem(section._id)")
                                     i.fa.fa-plus
-                                    |  Add item
+                                    .hidden-xs.hidden-sm Add item
                                 a.btn.btn-info(ng-click="editSection(section)")
                                     i.fa.fa-edit
-                                    |  Edit section
+                                    .hidden-xs.hidden-sm  Edit section
                                 a.btn.btn-danger(ng-click="deleteSection(section._id)")
                                     i.fa.fa-trash
-                                    |  Delete section
+                                    .hidden-xs.hidden-sm  Delete section
                     tr
                         td.col-xs-1 Order #
                         td.col-xs-6 Name
@@ -51,10 +51,10 @@ block body
                             .btn-group
                                 a.btn.btn-warning(ng-click="editItem(item)")
                                     i.fa.fa-fw.fa-edit
-                                    | Edit
+                                    .hidden-xs.hidden-sm  Edit
                                 a.btn.btn-danger(ng-click="deleteItem(item._id)")
                                     i.fa.fa-fw.fa-times
-                                    | Delete
+                                    .hidden-xs.hidden-sm  Delete
     script(type="text/ng-template", id="addItem")
         include partials/additem
     script(type="text/ng-template", id="editItem")

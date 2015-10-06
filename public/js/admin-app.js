@@ -90,6 +90,7 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
                 for (key in config) {
                     API.setConfig(key, config[key]);
                 }
+                $window.location.reload();
             })
     }
 

@@ -14,7 +14,7 @@ app.controller('MenuCtrl', function ($scope, basketService) {
 	}
 });
 
-app.controller('footerCtrl', ['$scope', 'clientAPI', function($scope, clientAPI) {
+app.controller('configCtrl', ['$scope', 'clientAPI', function($scope, clientAPI) {
 	$scope.config = {};
 	var getValue = function(key) {
 		$scope.config[key]="";

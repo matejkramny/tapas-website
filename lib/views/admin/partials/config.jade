@@ -4,9 +4,22 @@
     form(name="configForm")
         .form-group
             .input-group
-                .input-group-addon test
-                textarea.form-control(required, ng-model="config.test")
+                .input-group-addon Name
+                input.form-control(type="text", required, ng-model="config.name")
+        .form-group
+            .input-group
+                .input-group-addon Address
+                textarea.form-control(required, ng-model="config.address", rows=5)
+        .form-group
+            .input-group
+                .input-group-addon Opening hours
+                textarea.form-control(required, ng-model="config.openHours", rows=5)
+        .form-group
+            .btn-group.input-group
+                .input-group-addon Promo
+                .btn.btn-attr(ng-class="{'btn-success': config.promo, 'btn-danger': !config.promo}", ng-click="toggle('promo')"): i.fa(ng-class="{'fa-check': config.promo, 'fa-times': !config.promo}")
+        input(type="hidden", name="hidden", ng-value="config.promo")
 .modal-footer
     a.btn.btn-success(ng-click="ok()")
         i.fa.fa-check
-        | Submit
+        |  Submit

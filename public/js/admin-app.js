@@ -87,8 +87,9 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
             controller: 'ConfigInstanceCtrl',
             templateUrl:"config"
         }).result.then(function(config) {
-                API.setConfig("promo", config.promo);
-                API.setConfig("address", config.promo);
+                for (key in config) {
+                    API.setConfig(key, config[key]);
+                }
             })
     }
 
@@ -120,11 +121,21 @@ app.controller('ConfigInstanceCtrl', ['$scope', '$modalInstance', 'API', functio
     var getValue = function(key) {
         $scope.config[key]="";
         API.getConfig(key, function (value) {
-            $scope.config[key] = value;
+            if (value == "true" || value == "false") {
+                $scope.config[key] = (value === "true");
+            }
+            else $scope.config[key] = value;
         })
     };
 
-    getValue("test");
+    $scope.toggle = function (key) {
+        $scope.config[key] = !$scope.config[key];
+    };
+
+    var neededVals=['address', 'promo', 'openHours', 'name'];
+    for (index in neededVals) {
+        getValue([neededVals[index]])
+    }
 }]);
 app.controller('AddItemInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
     $scope.item={};
@@ -191,7 +202,6 @@ app.service('API', ['$http', function($http){
     this.getConfig = function (key, cb) {
         $http.get('/config/'+key).success(function (model) {
             cb(model.value);
-            console.log(model.value);
         });
     };
 

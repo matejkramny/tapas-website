@@ -7,6 +7,7 @@ html(lang="en" ng-app="tapas")
     link(rel="stylesheet" href="/css/bootstrap.min.css")
     link(rel="stylesheet" href="/css/tapas.css")
     link(rel="stylesheet" href="/css/font-awesome.min.css")
+    link(rel="stylesheet" href="/css/bootstrap-social.css")
 
     script(src="/js/jquery.min.js")
     script(src="/js/bootstrap.min.js")
@@ -14,7 +15,8 @@ html(lang="en" ng-app="tapas")
     script(src="/js/angular-local-storage.min.js")
     script(src="/js/app.js")
     script(src="/js/ui-bootstrap.min.js")
-    script(src="/js/admin-app.js")
+    if session.admin
+      script(src="/js/admin-app.js")
   body
     nav.navbar.navbar-fixed-top.navbar-inverse
       .container
@@ -45,6 +47,12 @@ html(lang="en" ng-app="tapas")
       .container.marketing
         img.marketing-img(src="img/promo.png", alt="")
     block body
-    //.container.food-menu
-      .col-xs-12.text-center
-        =config.address
+    .container.food-menu(ng-controller="footerCtrl", style="white-space: pre;")
+      .col-xs-12.col-sm-4
+        b {{ config.name }}
+        br
+        | {{ config.address }}
+      .col-xs-12.col-sm-4
+        b Opening hours
+        br
+        | {{ config.openHours }}

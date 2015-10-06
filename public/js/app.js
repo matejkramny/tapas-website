@@ -14,6 +14,23 @@ app.controller('MenuCtrl', function ($scope, basketService) {
 	}
 });
 
+app.controller('footerCtrl', ['$scope', 'clientAPI', function($scope, clientAPI) {
+	$scope.config = {};
+	var getValue = function(key) {
+		$scope.config[key]="";
+		clientAPI.getConfig(key, function (value) {
+			if (value == "true" || value == "false") {
+				$scope.config[key] = (value === "true");
+			}
+			else $scope.config[key] = value;
+		})
+	};
+	var neededVals=['address', 'promo', 'openHours', 'name'];
+	for (index in neededVals) {
+		getValue([neededVals[index]])
+	}
+}]);
+
 app.controller('BasketCtrl', function ($scope, $http, basketService, localStorageService) {
 	try {
 		$scope.customer = JSON.parse(localStorageService.get('customer'));
@@ -52,6 +69,14 @@ app.controller('BasketCtrl', function ($scope, $http, basketService, localStorag
 		})
 	}
 });
+
+app.service('clientAPI', ['$http', function ($http) {
+	this.getConfig = function (key, cb) {
+		$http.get('/config/'+key).success(function (model) {
+			cb(model.value);
+		});
+	};
+}]);
 
 app.service('basketService', function ($http, localStorageService) {
 	var self = this;

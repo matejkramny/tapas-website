@@ -309,3 +309,7 @@ textarea { resize:vertical; }
     height: 70px;
   }
 }
+
+.form-group{
+  margin: 5px 0 !important;
+}

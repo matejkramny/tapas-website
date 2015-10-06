@@ -13,7 +13,7 @@
         .form-group
             .input-group
                 .input-group-addon Description
-                textarea.form-control(required, ng-model="item.description")
+                textarea.form-control(ng-model="item.description")
         .form-group
             .input-group
                 .input-group-addon Price
@@ -21,12 +21,19 @@
                 .input-group-addon: i.fa.fa-gbp
         .form-group
             .btn-group.input-group
-                .input-group-addon Ingredients
-                .input-group-addon(ng-show="item.ingredients.length == 0") None
+                .input-group-addon Ingredients and
+                    br
+                    | Default Values
                 .input-group-addon
-
+                    .input-group.form-group(ng-repeat="ingredient in item.ingredients track by $index")
+                        input.form-control(type="text", ng-model="ingredient.name", placeholder="Ingredient name")
+                        .input-group-btn
+                            a.btn.btn-default(ng-click="setIngredient(0, ingredient)") None
+                            a.btn.btn-success(ng-click="setIngredient(1, ingredient.$index)") Normal
+                            a.btn.btn-default(ng-click="setIngredient(2, ingredient.$index)") Double
+                            a.btn.btn-danger(ng-click="deleteIngredient(ingredient.$index)"): i.fa.fa-times
                 .input-group-addon
-                    .btn.btn-success: i.fa.fa-plus
+                    .btn.btn-success(ng-click="addIngredient()"): i.fa.fa-plus
         .form-group
             .input-group
                 .input-group-addon Image

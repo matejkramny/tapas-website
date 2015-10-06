@@ -13,7 +13,8 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
             keyboard: false,
             scope: scope,
             controller: 'EditItemInstanceCtrl',
-            templateUrl: 'editItem'
+            templateUrl: 'editItem',
+            size: 'lg'
         }).result.then(function(item) {
             API.editItem(item, function () {
                 $scope.refresh();
@@ -57,7 +58,8 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
             keyboard: false,
             scope: scope,
             controller: 'AddItemInstanceCtrl',
-            templateUrl: "addItem"
+            templateUrl: "addItem",
+            size: 'lg'
         }).result.then(function(item) {
             API.addItem(item, section, function () {
                 $scope.refresh();
@@ -133,7 +135,7 @@ app.controller('ConfigInstanceCtrl', ['$scope', '$modalInstance', 'API', functio
         $scope.config[key] = !$scope.config[key];
     };
 
-    var neededVals=['address', 'promo', 'openHours', 'name'];
+    var neededVals=['address', 'promo', 'openHours', 'name', 'twitter', 'facebook', 'instagram'];
     for (index in neededVals) {
         getValue([neededVals[index]])
     }
@@ -143,6 +145,7 @@ app.controller('AddItemInstanceCtrl', ['$scope', '$modalInstance', function ($sc
     $scope.item.vegan=false;
     $scope.item.gluten_free=false;
     $scope.item.hidden=false;
+    $scope.item.ingredients = [];
     $scope.ok = function () {
         $modalInstance.close($scope.item);
     };
@@ -161,6 +164,20 @@ app.controller('AddItemInstanceCtrl', ['$scope', '$modalInstance', function ($sc
 
     $scope.toggleHidden = function () {
         $scope.item.hidden=!$scope.item.hidden
+    }
+
+    $scope.addIngredient = function () {
+        $scope.item.ingredients.push({name: "", default_quantity: 1});
+    }
+
+    $scope.setIngredient = function (value, ingredient) {
+        console.log(ingredient);
+        $scope.item.ingredients[ingredient].default_quantity=value;
+    }
+
+    $scope.deleteIngredient = function (ingredient) {
+        console.log(ingredient);
+        $scope.item.ingredients.pop(ingredient);
     }
 }]);
 app.controller('AddSectionInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {

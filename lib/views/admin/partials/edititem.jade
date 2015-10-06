@@ -9,15 +9,15 @@
         .form-group
             .input-group
                 .input-group-addon Name
-                input.form-control(type="text", name="name", required, ng-model="item.name")
+                input.form-control(type="text", required, ng-model="item.name")
         .form-group
             .input-group
                 .input-group-addon Description
-                textarea.form-control(name="description", required, ng-model="item.description")
+                textarea.form-control(ng-model="item.description")
         .form-group
             .input-group
                 .input-group-addon Price
-                input.form-control(type="number", min=0.00, step=0.01, name="price", ng-model="item.price", required)
+                input.form-control(type="number", min=0.00, step=0.01, ng-model="item.price", required)
                 .input-group-addon: i.fa.fa-gbp
         .form-group
             .input-group

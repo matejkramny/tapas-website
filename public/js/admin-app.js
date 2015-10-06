@@ -81,12 +81,22 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
             templateUrl:"/admin/logs"
         })
     };
+
+    $scope.config = function(){
+        $modal.open({
+            controller: 'ConfigInstanceCtrl',
+            templateUrl:"config"
+        }).result.then(function(config) {
+                API.setConfig("promo", config.promo);
+                API.setConfig("address", config.promo);
+            })
+    }
+
 }]);
 app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
     $scope.ok = function () {
         $modalInstance.close($scope.item);
-        $scope.refresh();
     };
 
     $scope.toggleVegan = function () {
@@ -96,6 +106,21 @@ app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', function ($s
     $scope.toggleGlutenFree = function () {
         $scope.item.gluten_free=!$scope.item.gluten_free
     }
+}]);
+app.controller('ConfigInstanceCtrl', ['$scope', '$modalInstance', 'API', function ($scope, $modalInstance, API) {
+    $scope.config = {};
+    $scope.ok = function () {
+        $modalInstance.close($scope.config);
+    };
+
+    var getValue = function(key) {
+        $scope.config[key]="";
+        API.getConfig(key, function (value) {
+            $scope.config[key] = value;
+        })
+    };
+
+    getValue("test");
 }]);
 app.controller('AddItemInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
@@ -140,6 +165,21 @@ app.service('API', ['$http', function($http){
         if (!cb) cb = function(){};
         $http.get('/sections').success(function (sections) {
             cb(sections);
+        })
+    };
+
+    this.getConfig = function (key, cb) {
+        $http.get('/config/'+key).success(function (model) {
+            cb(model.value);
+            console.log(model.value);
+        });
+    };
+
+    this.setConfig = function (key, value, cb) {
+        if (!cb) cb = function(){};
+        input={value: value};
+        $http.put('/admin/config/'+key, input).success(function () {
+            cb();
         })
     };
 

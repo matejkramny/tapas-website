@@ -289,3 +289,5 @@ a.top {
 .no-margin{
   margin: 0 !important;
 }
+
+textarea { resize:vertical; }

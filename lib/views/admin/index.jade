@@ -16,6 +16,9 @@ block body
                         a.btn.btn-info(href="/admin/printout", target="_blank")
                             i.fa.fa-print
                             |  Generate printout
+                        a.btn.btn-warning(ng-click="config()")
+                            i.fa.fa-cogs
+                            |  Config
                         a.btn.btn-danger(href="/logout")
                             i.fa.fa-sign-out
                             |  Log Out
@@ -60,3 +63,5 @@ block body
         include partials/addsection
     script(type="text/ng-template", id="editsection")
         include  partials/editsection
+    script(type="text/ng-template", id="config")
+        include  partials/config

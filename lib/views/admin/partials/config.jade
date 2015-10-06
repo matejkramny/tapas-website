@@ -1,0 +1,12 @@
+.modal-header
+    h3 Site configuration
+.modal-body
+    form(name="configForm")
+        .form-group
+            .input-group
+                .input-group-addon test
+                textarea.form-control(required, ng-model="config.test")
+.modal-footer
+    a.btn.btn-success(ng-click="ok()")
+        i.fa.fa-check
+        | Submit

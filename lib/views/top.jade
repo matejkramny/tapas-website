@@ -56,6 +56,6 @@ html(lang="en" ng-app="tapas")
         br
         | {{ config.openHours }}
       .col-xs-12.col-sm-4.btn-toolbar
-        a.btn.btn-social-icon.btn-twitter(ng-show="config.twitter != ''", href="{{ config.twitter }}"): i.fa.fa-twitter
-        a.btn.btn-social-icon.btn-facebook(ng-show="config.facebook != ''", href="{{ config.facebook }}"): i.fa.fa-facebook
-        a.btn.btn-social-icon.btn-instagram(ng-show="config.instagram != ''", href="{{ config.instagram }}"): i.fa.fa-instagram
+        a.btn.btn-social-icon.btn-twitter(ng-show="config.twitter != ''", href="{{ config.twitter }}", target="_blank"): i.fa.fa-twitter
+        a.btn.btn-social-icon.btn-facebook(ng-show="config.facebook != ''", href="{{ config.facebook }}", target="_blank"): i.fa.fa-facebook
+        a.btn.btn-social-icon.btn-instagram(ng-show="config.instagram != ''", href="{{ config.instagram }}", target="_blank"): i.fa.fa-instagram

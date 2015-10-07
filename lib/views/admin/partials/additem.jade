@@ -28,10 +28,10 @@
                     .input-group.form-group(ng-repeat="ingredient in item.ingredients track by $index")
                         input.form-control(type="text", ng-model="ingredient.name", placeholder="Ingredient name")
                         .input-group-btn
-                            a.btn.btn-default(ng-click="setIngredient(0, ingredient)") None
-                            a.btn.btn-success(ng-click="setIngredient(1, ingredient.$index)") Normal
-                            a.btn.btn-default(ng-click="setIngredient(2, ingredient.$index)") Double
-                            a.btn.btn-danger(ng-click="deleteIngredient(ingredient.$index)"): i.fa.fa-times
+                            a.btn.btn-default(ng-class="{'btn-success': ingredient.default_quantity==0}", ng-click="setIngredient(0, $index)") None
+                            a.btn.btn-default(ng-class="{'btn-success': ingredient.default_quantity==1}", ng-click="setIngredient(1, $index)") Normal
+                            a.btn.btn-default(ng-class="{'btn-success': ingredient.default_quantity==2}", ng-click="setIngredient(2, $index)") Double
+                            a.btn.btn-danger(ng-click="deleteIngredient($index)"): i.fa.fa-times
                 .input-group-addon
                     .btn.btn-success(ng-click="addIngredient()"): i.fa.fa-plus
         .form-group

@@ -170,14 +170,12 @@ app.controller('AddItemInstanceCtrl', ['$scope', '$modalInstance', function ($sc
         $scope.item.ingredients.push({name: "", default_quantity: 1});
     }
 
-    $scope.setIngredient = function (value, ingredient) {
-        console.log(ingredient);
-        $scope.item.ingredients[ingredient].default_quantity=value;
+    $scope.setIngredient = function (value, index) {
+        $scope.item.ingredients[index].default_quantity=value;
     }
 
-    $scope.deleteIngredient = function (ingredient) {
-        console.log(ingredient);
-        $scope.item.ingredients.pop(ingredient);
+    $scope.deleteIngredient = function (index) {
+        $scope.item.ingredients.splice(index, 1);
     }
 }]);
 app.controller('AddSectionInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {

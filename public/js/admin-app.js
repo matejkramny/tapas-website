@@ -114,6 +114,18 @@ app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', function ($s
     $scope.toggleHidden = function () {
         $scope.item.hidden=!$scope.item.hidden
     }
+
+    $scope.addIngredient = function () {
+        $scope.item.ingredients.push({name: "", default_quantity: 1});
+    }
+
+    $scope.setIngredient = function (value, index) {
+        $scope.item.ingredients[index].default_quantity=value;
+    }
+
+    $scope.deleteIngredient = function (index) {
+        $scope.item.ingredients.splice(index, 1);
+    }
 }]);
 app.controller('ConfigInstanceCtrl', ['$scope', '$modalInstance', 'API', function ($scope, $modalInstance, API) {
     $scope.config = {};

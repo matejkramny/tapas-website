@@ -38,8 +38,12 @@ block body
                     td Qty
                     td Price
                     td &nbsp;
-                tbody: tr(ng-repeat="item in basket.items track by $index")
+                tbody: tr(ng-repeat="item in basket.items track by item.id")
                     td {{ item.obj.name }}
-                    td: input(type="number" ng-model="item.quantity" ng-change="basket.save()")
+                    td: input.form-control(type="number" ng-model="item.quantity" ng-change="basket.save()")
                     td £{{ (item.quantity * item.obj.price).toFixed(2) }}
-                    td: button.btn.btn-danger.btn-xs(ng-click="basket.remove(item); basket.save()"): i.fa.fa-fw.fa-times
+                    td
+                        button.btn.btn-info.btn-xs(ng-click="ingredients(item); basket.save()"): i.fa.fa-fw.fa-edit
+                        button.btn.btn-danger.btn-xs(ng-click="basket.remove(item); basket.save()"): i.fa.fa-fw.fa-times
+    script(type="text/ng-template", id="ingredients")
+        include partials/ingredients

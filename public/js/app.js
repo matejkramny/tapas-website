@@ -31,7 +31,7 @@ app.controller('configCtrl', ['$scope', 'clientAPI', function($scope, clientAPI)
 	}
 }]);
 
-app.controller('BasketCtrl', function ($scope, $http, basketService, localStorageService) {
+app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope,  basketService, localStorageService) {
 	try {
 		$scope.customer = JSON.parse(localStorageService.get('customer'));
 		if (!$scope.customer) throw Error();
@@ -45,12 +45,25 @@ app.controller('BasketCtrl', function ($scope, $http, basketService, localStorag
 		localStorageService.set('customer', JSON.stringify($scope.customer));
 	};
 
+	$scope.ingredients = function(item) {
+		var scope = $rootScope.$new();
+		scope.item = item;
+		$modal.open({
+			scope: scope,
+			controller: 'IngredientsInstanceCtrl',
+			templateUrl: 'ingredients'
+		}).result.then(function(item) {
+				basketService.ingredients(item)
+			});
+	};
+
 	$scope.submitOrder = function () {
 		var items = [];
 		for (var i = 0; i < basketService.items.length; i++) {
 			items.push({
 				id: basketService.items[i].id,
-				quantity: basketService.items[i].quantity
+				quantity: basketService.items[i].quantity,
+				ingredients: basketService.items[i].ingredients
 			});
 		}
 
@@ -69,6 +82,21 @@ app.controller('BasketCtrl', function ($scope, $http, basketService, localStorag
 		})
 	}
 });
+
+app.controller('IngredientsInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+	$scope.ok = function () {
+		$modalInstance.close($scope.ingredients);
+	};
+
+	$scope.setIngredientValues = function (ingredient) {
+		ingredient.value = ingredient.default_quantity;
+	};
+
+	$scope.setIngredient = function (ingredient) {
+		if (ingredient.value != 2) {ingredient.value = ingredient.value+1}
+		else {ingredient.value=0}
+	}
+}]);
 
 app.service('clientAPI', ['$http', function ($http) {
 	this.getConfig = function (key, cb) {

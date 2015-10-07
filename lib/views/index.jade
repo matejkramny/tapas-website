@@ -10,7 +10,7 @@ block body
                     .row
                         for item, index in section.items
                             unless item.hidden
-                                .food-box-container.col-md-3.col-sm-4.col-xs-12.text-center: .food-box: .food-box-content: .food-box-relative(style=("background-image: url(img/products/#{item._id}.jpg)"))
+                                .food-box-container.col-md-3.col-sm-4.col-xs-12.text-center: .food-box: .food-box-content: .food-box-relative(style=item.has_image ? "background-image: url(https://s3-eu-west-1.amazonaws.com/tapas-media/#{item._id}.#{item.extension})" : null)
                                     .overlay
                                     .name-display: .dish-name
                                         .row#dish-name

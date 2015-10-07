@@ -1,4 +1,7 @@
-var app = angular.module('tapas', ['LocalStorageModule', 'ui.bootstrap']);
+var deps = ['LocalStorageModule', 'ui.bootstrap'];
+if (window.ngFileUpload) deps.push('ngFileUpload');
+
+var app = angular.module('tapas', deps);
 
 app.config(function (localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('tapas');

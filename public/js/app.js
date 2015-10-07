@@ -19,19 +19,9 @@ app.controller('MenuCtrl', function ($scope, basketService) {
 
 app.controller('configCtrl', ['$scope', 'clientAPI', function($scope, clientAPI) {
 	$scope.config = {};
-	var getValue = function(key) {
-		$scope.config[key]="";
-		clientAPI.getConfig(key, function (value) {
-			if (value == "true" || value == "false") {
-				$scope.config[key] = (value === "true");
-			}
-			else $scope.config[key] = value;
-		})
-	};
-	var neededVals=['address', 'promo', 'openHours', 'name', 'twitter', 'facebook', 'instagram'];
-	for (index in neededVals) {
-		getValue([neededVals[index]])
-	}
+	clientAPI.getAllConfig(function (config) {
+      $scope.config = config;
+  });
 }]);
 
 app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope,  basketService, localStorageService) {
@@ -102,11 +92,11 @@ app.controller('IngredientsInstanceCtrl', ['$scope', '$modalInstance', function 
 }]);
 
 app.service('clientAPI', ['$http', function ($http) {
-	this.getConfig = function (key, cb) {
-		$http.get('/config/'+key).success(function (model) {
-			cb(model.value);
-		});
-	};
+	this.getAllConfig = function (cb) {
+      $http.get('/config').success(function (model) {
+          cb(model);
+      })
+  }
 }]);
 
 app.service('basketService', function ($http, localStorageService) {

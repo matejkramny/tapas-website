@@ -193,11 +193,6 @@ app.controller('ConfigInstanceCtrl', ['$scope', '$modalInstance', 'API', functio
     $scope.toggle = function (key) {
         $scope.config[key] = !$scope.config[key];
     };
-
-    var neededVals=['address', 'promo', 'openHours', 'name', 'twitter', 'facebook', 'instagram'];
-    for (index in neededVals) {
-        getValue([neededVals[index]])
-    }
 }]);
 app.controller('AddItemInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
     $scope.item={};

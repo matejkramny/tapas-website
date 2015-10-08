@@ -29,7 +29,10 @@
         .form-group
             .btn-group.input-group
                 .input-group-addon Promo
-                .btn.btn-attr(ng-class="{'btn-success': config.promo, 'btn-danger': !config.promo}", ng-click="toggle('promo')"): i.fa(ng-class="{'fa-check': config.promo, 'fa-times': !config.promo}")
+                .btn(ng-class="{'btn-success': config.promo, 'btn-danger': !config.promo}", ng-click="toggle('promo')"): i.fa.fa-fw(ng-class="{'fa-check': config.promo, 'fa-times': !config.promo}")
+                span.btn.btn-info.btn-file(ngf-select ngf-capture="'camera'" accept="image/*"  ngf-change="upload($files)") Click here to upload
+        progressbar(max='100', value='upload.progress', ng-if="upload.progress > 0")
+            span(style='color:white; white-space:nowrap;') {{ upload.progress }}% Uploaded
         input(type="hidden", name="hidden", ng-value="config.promo")
 .modal-footer
     a.btn.btn-success(ng-click="ok()", ng-disabled="configForm.$invalid")

@@ -14,7 +14,7 @@ app.run(function ($rootScope, basketService) {
 app.controller('MenuCtrl', function ($scope, basketService) {
 	$scope.addToBasket = function (id) {
 		basketService.addItem(id);
-	}
+	};
 });
 
 app.controller('configCtrl', ['$scope', 'clientAPI', function($scope, clientAPI) {
@@ -45,9 +45,7 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope,  baske
 			scope: scope,
 			controller: 'IngredientsInstanceCtrl',
 			templateUrl: 'ingredients'
-		}).result.then(function(item) {
-				basketService.ingredients(item)
-			});
+		});
 	};
 
 	$scope.submitOrder = function () {
@@ -76,13 +74,21 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope,  baske
 	}
 });
 
-app.controller('IngredientsInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+app.controller('IngredientsInstanceCtrl', ['$scope', '$modalInstance',  function ($scope, $modalInstance) {
 	$scope.ok = function () {
-		$modalInstance.close($scope.ingredients);
+		$scope.item.ingredients = [];
+		for (ingredient in $scope.item.obj.ingredients) {
+			$scope.item.ingredients.push({id: $scope.item.obj.ingredients[ingredient]._id, value: $scope.item.obj.ingredients[ingredient].value})
+		}
+		$modalInstance.close();
 	};
 
-	$scope.setIngredientValues = function (ingredient) {
-		ingredient.value = ingredient.default_quantity;
+	$scope.setIngredientValues = function (ingredient, index) {
+		if ("ingredients" in $scope.item) {
+			ingredient.value = $scope.item.ingredients[index].value;
+		} else {
+			ingredient.value = ingredient.default_quantity;
+		}
 	};
 
 	$scope.setIngredient = function (ingredient) {
@@ -99,7 +105,7 @@ app.service('clientAPI', ['$http', function ($http) {
   }
 }]);
 
-app.service('basketService', function ($http, localStorageService) {
+app.service('basketService', function ($http, $rootScope, $modal, localStorageService) {
 	var self = this;
 
 	try {
@@ -139,9 +145,9 @@ app.service('basketService', function ($http, localStorageService) {
 
 	this.addItem = function (id) {
 		var found = false;
-
+		var item = 0;
 		for (var i = 0; i < self.items.length; i++) {
-			var item = self.items[i];
+			item = self.items[i];
 
 			if (item.id != id) continue;
 
@@ -155,9 +161,21 @@ app.service('basketService', function ($http, localStorageService) {
 				id: id,
 				quantity: 1
 			});
+			item = self.items.length-1;
+			var scope = $rootScope.$new();
+			self.getItems();
+			scope.item = self.items[item];
+			$modal.open({
+				scope: scope,
+				controller: 'IngredientsInstanceCtrl',
+				templateUrl: 'ingredients'
+			}).result.then(function() {
+					self.save()
+				});
 		}
-
+		console.log(self.items[item]);
 		self.save();
+
 	};
 
 	this.save = function () {

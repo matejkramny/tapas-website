@@ -55,6 +55,7 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
         scope.item = item;
         $modal.open({
             scope: scope,
+            controller: 'UploadInstanceCtrl',
             templateUrl: 'upload'
         }).result.then(function(item) {
                 API.editItem(item, function () {
@@ -109,7 +110,7 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
     }
 
 }]);
-app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', 'Upload', '$http', function ($scope, $modalInstance) {
+app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
     $scope.ok = function () {
         $modalInstance.close($scope.item);
@@ -225,7 +226,7 @@ app.controller('EditSectionInstanceCtrl', ['$scope', '$modalInstance', function 
     }
 
 }]);
-app.controller('UploadInstanceCtrl', ['$scope', '$modalInstance', 'Upload', function ($scope, $modalInstance, Uplaod) {
+app.controller('UploadInstanceCtrl', ['$scope', '$modalInstance', 'Upload', '$http', function ($scope, $modalInstance, Upload, $http) {
     $scope.upload = null;
 
     $scope.ok = function () {
@@ -250,10 +251,10 @@ app.controller('UploadInstanceCtrl', ['$scope', '$modalInstance', 'Upload', func
             extension: extension,
             contentType: contentType
         }).success(function (img) {
-            $scope.upload = {
-                progress: 0,
-                finished: false
-            }
+        $scope.upload = {
+            progress: 0,
+            finished: false
+        }
 
             Upload.upload({
                 url: img.url,
@@ -269,8 +270,7 @@ app.controller('UploadInstanceCtrl', ['$scope', '$modalInstance', 'Upload', func
                 },
                 file: file
             }).progress(function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                $scope.upload.progress = progressPercentage;
+                $scope.upload.progress = parseInt(100.0 * evt.loaded / evt.total);
             }).success(function (data, status, headers, config) {
                 $scope.upload.progress = 100;
                 $scope.upload.finished = true;

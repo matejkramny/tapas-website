@@ -1,13 +1,11 @@
 .modal-header
-    h3 Upload image
+    h3 Upload image for {{ item.name }}
 .modal-body
     .form-group
-        .input-group
+        .btn-group.input-group
             .input-group-addon Image
-            span.btn.btn-info.btn-file.form-control(ngf-select ngf-capture="'camera'" accept="image/*"  ngf-change="upload($files)") Browse
-        progressbar(max='100', value='upload.progress', ng-if="upload.progress > 0")
-            span(style='color:white; white-space:nowrap;') {{ upload.progress }}% Uploaded
+            span.btn.btn-info.btn-file(ngf-select ngf-capture="'camera'" accept="image/*"  ngf-change="upload($files)") Click here to upload
+    progressbar(max='100', value='upload.progress', ng-if="upload.progress > 0")
+        span(style='color:white; white-space:nowrap;') {{ upload.progress }}% Uploaded
 .modal-footer
-    button.btn.btn-success(type='button', ng-click='ok()')
-        i.fa.fa-check
-        |  Submit
+    a.btn.btn-success(ng-click="ok()") OK

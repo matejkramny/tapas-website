@@ -35,11 +35,6 @@
                 .input-group-addon
                     .btn.btn-success(ng-click="addIngredient()"): i.fa.fa-plus
         .form-group
-            .input-group
-                .input-group-addon Image
-                span.btn.btn-info.btn-file.form-control(ngf-select ngf-capture="'camera'" ngf-change="upload($files)") Browse
-            span(ng-if="upload.progress > 0") {{ upload.progress }}% Uploaded.
-        .form-group
             .btn-group.input-group
                 .input-group-addon Attributes
                 .btn.btn-attr(ng-class="{'btn-success': item.vegan, 'btn-danger': !item.vegan}", ng-click="toggleVegan()"): span.vegetarian

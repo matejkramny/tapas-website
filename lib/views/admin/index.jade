@@ -52,6 +52,9 @@ block body
                                 a.btn.btn-warning(ng-click="editItem(item)")
                                     i.fa.fa-fw.fa-edit
                                     .hidden-xs.hidden-sm  Edit
+                                a.btn.btn-info(ng-click="upload(item)")
+                                    i.fa.fa-fw.fa-image
+                                    .hidden-xs.hidden-sm  Upload
                                 a.btn.btn-danger(ng-click="deleteItem(item._id)")
                                     i.fa.fa-fw.fa-times
                                     .hidden-xs.hidden-sm  Delete
@@ -65,3 +68,5 @@ block body
         include  partials/editsection
     script(type="text/ng-template", id="config")
         include  partials/config
+    script(type="text/ng-template", id="upload")
+        include  partials/upload

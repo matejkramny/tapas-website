@@ -37,8 +37,9 @@
         .form-group
             .input-group
                 .input-group-addon Image
-                span.btn.btn-info.btn-file.form-control Browse
-                    input(type="file", name="image")
+                span.btn.btn-info.btn-file.form-control(ngf-select ngf-capture="'camera'" accept="image/*"  ngf-change="upload($files)") Browse
+            progressbar(max='100', value='upload.progress', ng-if="upload.progress > 0")
+                span(style='color:white; white-space:nowrap;') {{ upload.progress }}% Uploaded
         .form-group
             .btn-group.input-group
                 .input-group-addon Attributes

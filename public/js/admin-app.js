@@ -50,6 +50,18 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
             });
         }
     };
+    $scope.upload = function(item){
+        var scope = $rootScope.$new();
+        scope.item = item;
+        $modal.open({
+            scope: scope,
+            templateUrl: 'upload'
+        }).result.then(function(item) {
+                API.editItem(item, function () {
+                    $scope.refresh();
+                })
+            });
+    };
     $scope.addItem = function(section){
         var scope = $rootScope.$new();
         scope.section = section;
@@ -97,8 +109,7 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
     }
 
 }]);
-app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', 'Upload', '$http', function ($scope, $modalInstance, Upload, $http) {
-    $scope.upload = null;
+app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', 'Upload', '$http', function ($scope, $modalInstance) {
 
     $scope.ok = function () {
         $modalInstance.close($scope.item);
@@ -128,51 +139,6 @@ app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', 'Upload', '$
         $scope.item.ingredients.splice(index, 1);
     }
 
-    $scope.upload = function (files) {
-        if (!files || !files.length) {
-            return;
-        }
-
-        var file = files[0];
-        var extension = file.name.split('.');
-        if (extension.length > 0) {
-            extension = extension[extension.length - 1];
-        } else {
-            extension = '';
-        }
-        var contentType = file.type != '' ? file.type : 'application/octet-stream';
-
-        $http.put('/admin/item/' + $scope.item._id + '/image', {
-            extension: extension,
-            contentType: contentType
-        }).success(function (img) {
-            $scope.upload = {
-                progress: 0,
-                finished: false
-            }
-
-            Upload.upload({
-                url: img.url,
-                method: 'POST',
-                fields : {
-                    key: img.name,
-                    filename: img.name,
-                    acl: 'public-read',
-                    policy: img.policy,
-                    signature: img.signature,
-                    AWSAccessKeyId: img.AWSAccessKeyId,
-                    "Content-Type": contentType
-                },
-                file: file
-            }).progress(function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                $scope.upload.progress = progressPercentage;
-            }).success(function (data, status, headers, config) {
-                $scope.upload.progress = 100;
-                $scope.upload.finished = true;
-            });
-        });
-    };
 }]);
 app.controller('ConfigInstanceCtrl', ['$scope', '$modalInstance', 'API', function ($scope, $modalInstance, API) {
     $scope.config = {};
@@ -180,7 +146,7 @@ app.controller('ConfigInstanceCtrl', ['$scope', '$modalInstance', 'API', functio
         $modalInstance.close($scope.config);
     };
 
-    var getValue = function(key) {
+    $scope.getValue = function(key) {
         $scope.config[key]="";
         API.getConfig(key, function (value) {
             if (value == "true" || value == "false") {
@@ -259,6 +225,59 @@ app.controller('EditSectionInstanceCtrl', ['$scope', '$modalInstance', function 
     }
 
 }]);
+app.controller('UploadInstanceCtrl', ['$scope', '$modalInstance', 'Upload', function ($scope, $modalInstance, Uplaod) {
+    $scope.upload = null;
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.item)
+    };
+
+    $scope.upload = function (files) {
+        if (!files || !files.length) {
+            return;
+        }
+
+        var file = files[0];
+        var extension = file.name.split('.');
+        if (extension.length > 0) {
+            extension = extension[extension.length - 1];
+        } else {
+            extension = '';
+        }
+        var contentType = file.type != '' ? file.type : 'application/octet-stream';
+
+        $http.put('/admin/item/' + $scope.item._id + '/image', {
+            extension: extension,
+            contentType: contentType
+        }).success(function (img) {
+            $scope.upload = {
+                progress: 0,
+                finished: false
+            }
+
+            Upload.upload({
+                url: img.url,
+                method: 'POST',
+                fields : {
+                    key: img.name,
+                    filename: img.name,
+                    acl: 'public-read',
+                    policy: img.policy,
+                    signature: img.signature,
+                    AWSAccessKeyId: img.AWSAccessKeyId,
+                    "Content-Type": contentType
+                },
+                file: file
+            }).progress(function (evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                $scope.upload.progress = progressPercentage;
+            }).success(function (data, status, headers, config) {
+                $scope.upload.progress = 100;
+                $scope.upload.finished = true;
+            });
+        });
+    };
+}])
 app.service('API', ['$http', function($http){
     var self = this;
 

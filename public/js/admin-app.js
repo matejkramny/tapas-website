@@ -141,7 +141,7 @@ app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', function ($s
     }
 
 }]);
-app.controller('ConfigInstanceCtrl', ['$scope', '$modalInstance', 'API', function ($scope, $modalInstance, API) {
+app.controller('ConfigInstanceCtrl', ['$scope', '$modalInstance', 'API', '$http', 'Upload', function ($scope, $modalInstance, API, $http, Upload) {
     $scope.config = {};
     $scope.ok = function () {
         $modalInstance.close($scope.config);
@@ -159,6 +159,56 @@ app.controller('ConfigInstanceCtrl', ['$scope', '$modalInstance', 'API', functio
 
     $scope.toggle = function (key) {
         $scope.config[key] = !$scope.config[key];
+    };
+
+    $http.get('/config', config).success(function (config){
+        $scope.config=config;
+    });
+
+    $scope.upload = function (files) {
+        if (!files || !files.length) {
+            return;
+        }
+
+        var file = files[0];
+        var extension = file.name.split('.');
+        if (extension.length > 0) {
+            extension = extension[extension.length - 1];
+        } else {
+            extension = '';
+        }
+        var contentType = file.type != '' ? file.type : 'application/octet-stream';
+
+        $http.put('/admin/config/promo/image', {
+            extension: extension,
+            contentType: contentType
+        }).success(function (img) {
+            $scope.upload = {
+                progress: 0,
+                finished: false
+            }
+
+            Upload.upload({
+                url: img.url,
+                method: 'POST',
+                fields : {
+                    key: img.name,
+                    filename: img.name,
+                    acl: 'public-read',
+                    policy: img.policy,
+                    signature: img.signature,
+                    AWSAccessKeyId: img.AWSAccessKeyId,
+                    "Content-Type": contentType
+                },
+                file: file
+            }).progress(function (evt) {
+                $scope.upload.progress = parseInt(100.0 * evt.loaded / evt.total);
+            }).success(function (data, status, headers, config) {
+                $scope.upload.progress = 100;
+                $scope.upload.finished = true;
+                $scope.config.promo_extension = extension;
+            });
+        });
     };
 }]);
 app.controller('AddItemInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {

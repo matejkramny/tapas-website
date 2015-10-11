@@ -4,7 +4,7 @@ body {
   background-size: 200px;
   -webkit-background-size: 200px;
   padding-bottom: 20px;
-  padding-top: 60px;
+  padding-top: 0px;
   background-attachment: fixed;
   overflow-y: scroll !important;
 }
@@ -312,4 +312,42 @@ textarea { resize:vertical; }
 
 .form-group{
   margin: 5px 0 !important;
+}
+
+.navbar {
+  background-image: url(../img/menu.png);
+  background-repeat: repeat;
+  border: 0;
+  border-radius: 0;
+}
+
+.navbar-text > li > a {
+  color: #000 !important;
+}
+
+.navbar-toggle {
+  border: none;
+}
+.navbar-toggle:hover {
+  background: none !important;
+}
+.logo {
+  height: 20vh
+}
+.logo-holder {
+  width: 100vw;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.scrolled {
+  margin-top: 60px;
+}
+
+.logo-hidden {
+  visibility: hidden;
+}
+
+.nav{
+  width: 1110px !important;
 }

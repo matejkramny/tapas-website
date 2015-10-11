@@ -13,9 +13,12 @@ html(lang="en" ng-app="tapas")
     script(src="/js/angular.min.js")
     script(src="/js/angular-local-storage.min.js")
     script(src="/js/app.js")
+    script(src="/js/bootstrap.min.js")
     script(src="/js/ui-bootstrap.min.js")
   body
-    nav.navbar.navbar-fixed-top.navbar-inverse
+    .logo-holder
+      img(src="/img/logo.png").logo
+    nav.navbar.navbar-default
       .container
         .navbar-header
           button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false')
@@ -23,7 +26,7 @@ html(lang="en" ng-app="tapas")
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href="/"): img(src="/img/logo.png")
+          a.navbar-brand(href="/").visible-xs: img(src="/img/logo.png")
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-text
             for section in sections
@@ -32,7 +35,7 @@ html(lang="en" ng-app="tapas")
             br.visible-xs
 
             li.btn-success.pull-right(ng-if="!hasOrdered")
-              a(href="/basket" style="color: #fff")
+              a(href="/basket" style="color: #fff !important")
                 i.fa.fa-shopping-cart.fa-fw
                 | &nbsp;
                 span(ng-bind="basket.totalItems") 0
@@ -58,3 +61,19 @@ html(lang="en" ng-app="tapas")
         a.btn.btn-social-icon.btn-instagram(ng-show="config.instagram != ''", href="{{ config.instagram }}", target="_blank"): i.fa.fa-instagram
     script(type="text/ng-template", id="ingredients")
       include partials/ingredients
+    script.
+      $(document).ready(function() {
+      var navpos = $('.navbar-default').offset();
+      $(window).bind('scroll', function() {
+      if ($(window).scrollTop() > navpos.top) {
+        $('.navbar-default').addClass('navbar-fixed-top');
+        $('body').addClass('scrolled');
+        $('.logo').addClass('logo-hidden');
+      }
+      else {
+        $('.navbar-default').removeClass('navbar-fixed-top');
+        $('body').removeClass('scrolled');
+       $('.logo').removeClass('logo-hidden');
+      }
+      });
+      });

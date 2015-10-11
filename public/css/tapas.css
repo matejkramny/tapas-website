@@ -138,12 +138,11 @@ img{
   position:absolute;
   background-color:#000;
   opacity:0.5;
-  border-radius:30px;
 }
 
 .food-box .dish-name {
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.6);
   display: block;
   width: 100%;
@@ -304,9 +303,21 @@ textarea { resize:vertical; }
   vertical-align: middle !important;
 }
 
-@media (min-width: 768px) {
-  .navbar-brand > img {
-    height: 70px;
+
+@media (max-width: 768px) {
+  .navbar-header {
+    background-image: url(../img/menu.png);
+  }
+  .ingredient {
+    padding-bottom: 5px;
+  }
+  .section {
+    display: block !important;
+    margin: 0 !important;
+  }
+  .section>a{
+    border-bottom-color: black;
+    border-bottom: 10px;
   }
 }
 
@@ -315,14 +326,14 @@ textarea { resize:vertical; }
 }
 
 .navbar {
-  background-image: url(../img/menu.png);
+  background-color: #e7af00;
   background-repeat: repeat;
   border: 0;
   border-radius: 0;
 }
 
 .navbar-text > li > a {
-  color: #000 !important;
+  color: #fff !important;
 }
 
 .navbar-toggle {
@@ -332,22 +343,63 @@ textarea { resize:vertical; }
   background: none !important;
 }
 .logo {
-  height: 20vh
+  height: 20vh;
+  margin-top: 10px;
 }
 .logo-holder {
   width: 100vw;
   text-align: center;
-  padding-top: 10px;
+  max-width:100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
 }
 
 .scrolled {
-  margin-top: 60px;
+  margin-top: 70px;
 }
 
 .logo-hidden {
   visibility: hidden;
 }
 
-.nav{
-  width: 1110px !important;
+.navbar-collapse {
+  padding: 0;
+}
+
+.triangles {
+  margin-top: 15px;
+  width: 100vw;
+  height: 50px;
+  background-image: url(../img/triangles.png);
+  background-repeat: repeat-x;
+  background-size: auto 40px;
+  max-width:100%;
+}
+ .nav > li {
+   background-color: #d76d0b;
+   color: white;
+   margin: 0 1.5px;
+ }
+
+.nav > li.btn-success:hover {
+  background-color: #d76d0b;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+  border: none !important;
+}
+
+.navbar-header-basket {
+  position: absolute;
+  right: 0;
+  overflow: hidden;
+  padding: 0 10px;
+  font-size: 20px;
+  border-radius: 0;
+  height: 50px;
+}
+
+.navbar-toggle {
+  padding-right: 60px;
 }

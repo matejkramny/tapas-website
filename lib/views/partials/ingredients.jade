@@ -2,7 +2,7 @@
     h1 Change ingredients for {{ item.obj.name }}
 .modal-body
     .row
-        .col-sm-4.col-xs-12(ng-repeat="ingredient in item.obj.ingredients track by $index", ng-init="setIngredientValues(ingredient, $index)")
+        .col-sm-4.col-xs-12.ingredient(ng-repeat="ingredient in item.obj.ingredients track by $index", ng-init="setIngredientValues(ingredient, $index)")
             .btn.col-xs-12(ng-click="setIngredient(ingredient)", ng-class="{'btn-default': ingredient.value==0, 'btn-success': ingredient.value != 0}") {{ ingredient.name }}&nbsp;
                 i.fa.fa-fw.fa-plus(ng-show="ingredient.value >= 1")
                 i.fa.fa-fw.fa-plus(ng-show="ingredient.value == 2")

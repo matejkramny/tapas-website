@@ -314,10 +314,7 @@ textarea { resize:vertical; }
   .section {
     display: block !important;
     margin: 0 !important;
-  }
-  .section>a{
-    border-bottom-color: black;
-    border-bottom: 10px;
+    border-bottom: solid #080808 1px !important;
   }
 }
 
@@ -382,10 +379,6 @@ textarea { resize:vertical; }
    margin: 0 1.5px;
  }
 
-.nav > li.btn-success:hover {
-  background-color: #d76d0b;
-}
-
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
   border: none !important;
 }
@@ -398,7 +391,11 @@ textarea { resize:vertical; }
   font-size: 20px;
   border-radius: 0;
   height: 50px;
+  background-color: #d76d0b;
+  border-bottom: solid #080808 1px !important;
 }
+
+
 
 .navbar-toggle {
   padding-right: 60px;

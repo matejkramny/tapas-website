@@ -28,7 +28,7 @@ html(lang="en" ng-app="tapas")
             span.icon-bar
             span.icon-bar
           a.navbar-brand(href="/").visible-xs: img(src="/img/logo.png")
-          button.btn.btn-success.pull-right.navbar-header-basket.visible-xs(ng-if="!hasOrdered")
+          button.btn.pull-right.navbar-header-basket.visible-xs(ng-if="!hasOrdered")
             a(href="/basket" style="color: #fff !important")
               i.fa.fa-shopping-cart.fa-fw
               | &nbsp;
@@ -38,7 +38,7 @@ html(lang="en" ng-app="tapas")
             for section in sections
               unless section.hidden
                 li.section: a(href="/#"+section.name.replace(/\s+/g, '-').toLowerCase())=section.name
-            li.btn-success.pull-right.hidden-xs(ng-if="!hasOrdered")
+            li.pull-right.hidden-xs(ng-if="!hasOrdered")
               a(href="/basket" style="color: #fff !important")
                 i.fa.fa-shopping-cart.fa-fw
                 | &nbsp;

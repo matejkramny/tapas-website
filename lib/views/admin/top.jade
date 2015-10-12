@@ -17,7 +17,10 @@ html(lang="en" ng-app="tapas")
     script(src="/js/ui-bootstrap.min.js")
     script(src="/js/admin-app.js")
   body
-    nav.navbar.navbar-fixed-top.navbar-inverse
+    .food-menu.logo-holder.hidden-xs.no-br
+      img(src="/img/logo.png").logo
+      .triangles.hidden-xs
+    nav.navbar.navbar-default.navbar-desktop
       .container
         .navbar-header
           button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false')
@@ -25,22 +28,25 @@ html(lang="en" ng-app="tapas")
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href="/"): img(src="/img/logo.png")
+          a.navbar-brand(href="/").visible-xs: img(src="/img/logo.png")
+          button.btn.pull-right.navbar-header-basket.visible-xs(ng-if="!hasOrdered")
+            a(href="/basket" style="color: #fff !important")
+              i.fa.fa-shopping-cart.fa-fw
+              | &nbsp;
+              span(ng-bind="basket.totalItems") 0
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-text
             for section in sections
               unless section.hidden
-                li: a(href="/#"+section.name.replace(/\s+/g, '-').toLowerCase())=section.name
-            br.visible-xs
-
-            li.btn-success.pull-right(ng-if="!hasOrdered")
-              a(href="/basket" style="color: #fff")
+                li.section: a(href="/#"+section.name.replace(/\s+/g, '-').toLowerCase())=section.name
+            li.pull-right.hidden-xs(ng-if="!hasOrdered")
+              a(href="/basket" style="color: #fff !important")
                 i.fa.fa-shopping-cart.fa-fw
                 | &nbsp;
                 span(ng-bind="basket.totalItems") 0
             if session.admin
               li.btn-danger.pull-right
-                a(href="/admin")
+                a(href="/admin", style="color: #fff !important")
                   i.fa.fa-cogs.fa-fw
     .container.marketing(ng-controller="configCtrl", ng-show="config.promo")
       img.marketing-img(ng-src="https://tapas-media.s3-eu-west-1.amazonaws.com/promo.{{ config.promo_extension }}", alt="")
@@ -58,3 +64,24 @@ html(lang="en" ng-app="tapas")
         a.btn.btn-social-icon.btn-twitter(ng-show="config.twitter != ''", href="{{ config.twitter }}", target="_blank"): i.fa.fa-twitter
         a.btn.btn-social-icon.btn-facebook(ng-show="config.facebook != ''", href="{{ config.facebook }}", target="_blank"): i.fa.fa-facebook
         a.btn.btn-social-icon.btn-instagram(ng-show="config.instagram != ''", href="{{ config.instagram }}", target="_blank"): i.fa.fa-instagram
+    script.
+      $(document).ready(function() {
+        var navpos = $('.navbar-default').offset();
+        if ($(window).width() > 768) {
+          $(window).bind('scroll', function() {
+            if ($(window).scrollTop() > navpos.top) {
+              $('.navbar-default').addClass('navbar-fixed-top');
+              $('body').addClass('scrolled');
+              $('.logo-holder').addClass('logo-hidden');
+            }
+            else {
+              $('.navbar-default').removeClass('navbar-fixed-top');
+              $('body').removeClass('scrolled');
+              $('.logo-holder').removeClass('logo-hidden');
+            }
+          });
+        } else {
+          $('.navbar-default').addClass('navbar-fixed-top');
+          $('body').addClass('scrolled')
+        }
+      });

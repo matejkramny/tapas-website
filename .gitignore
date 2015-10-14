@@ -54,4 +54,4 @@ node_modules
 
 .idea
 
-public/img/products
+config.js

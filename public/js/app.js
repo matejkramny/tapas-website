@@ -1,4 +1,4 @@
-var deps = ['LocalStorageModule', 'ui.bootstrap'];
+var deps = ['LocalStorageModule', 'ui.bootstrap', 'angucomplete-alt'];
 if (window.ngFileUpload) deps.push('ngFileUpload');
 
 var app = angular.module('tapas', deps);
@@ -31,7 +31,7 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope,  baske
 	} catch (e) {
 		$scope.customer = {};
 	}
-
+	$scope.postCodeValid = false;
 	basketService.getItems();
 
 	$scope.saveCustomer = function () {
@@ -58,7 +58,7 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope,  baske
 			});
 		}
 
-		if (items.length == 0) return;
+		if (items.length == 0 || !$scope.postCodeValid) return;
 
 		$scope.submitting = true;
 		$http.post('/order', {
@@ -71,6 +71,16 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope,  baske
 			$scope.submitting = false;
 			$scope.status = 'Order Failed.'
 		})
+	};
+	$scope.postcodes = [];
+	$scope.getPostcodes = function (entered, timeoutPromise) {
+		return $http.get('https://api.postcodes.io/postcodes/'+entered+'/autocomplete', {timeout: timeoutPromise});
+	};
+	$scope.verifyPostcode = function(postcode) {
+		console.log(postcode);
+		$http.get('https://api.postcodes.io/postcodes/'+postcode)
+			.success(function () {$scope.postCodeValid=true})
+			.error(function () {$scope.postCodeValid=false});
 	}
 });
 

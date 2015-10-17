@@ -131,13 +131,15 @@ img{
 
 }
 
-.food-box-relative:hover > .overlay {
-  border-radius: 0 !important;
-  width:100%;
-  height:100%;
-  position:absolute;
-  background-color:#000;
-  opacity:0.5;
+@media (min-width: 768px) {
+  .food-box-relative:hover > .overlay {
+    border-radius: 0 !important;
+    width:100%;
+    height:100%;
+    position:absolute;
+    background-color:#000;
+    opacity:0.5;
+  }
 }
 
 .food-box .dish-name {
@@ -167,32 +169,36 @@ img{
   font-size: 14px;
   margin: 0;
 }
-.food-box-relative:hover {
-  background: #333;
-  background-position: center;
-  background-size: auto 100%;
-}
-.food-box-relative:hover h4 {
-  display: block;
-  color: white;
-}
 
-.food-box-relative:hover h2 {
-  display: block;
-  color: white;
-}
+@media(min-width: 768px) {
+  .food-box-relative:hover {
+    background: #333;
+    background-position: center;
+    background-size: auto 100%;
+  }
+  .food-box-relative:hover h4 {
+    display: block;
+    color: white;
+  }
 
-.food-box-relative:hover #dish-name {
-  display: none;
+  .food-box-relative:hover h2 {
+    display: block;
+    color: white;
+  }
+
+  .food-box-relative:hover #dish-name {
+    display: none;
+  }
+
+  .food-box-relative:hover span {
+    display: inline-block !important;
+  }
 }
 
 .order-group {
   margin-top: 10px;
 }
 
-.food-box-relative:hover span {
-  display: inline-block !important;
-}
 
 h4 {
   font-weight: normal !important;

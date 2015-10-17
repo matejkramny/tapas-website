@@ -1,12 +1,14 @@
 .modal-header
-    h1 Change ingredients for {{ item.obj.name }}
+    h1.modal-title Change ingredients for {{ item.obj.name }}
 .modal-body
-    .row
-        .col-sm-4.col-xs-12.ingredient(ng-repeat="ingredient in item.obj.ingredients track by $index", ng-init="setIngredientValues(ingredient, $index)")
-            .btn.col-xs-12(ng-click="setIngredient(ingredient)", ng-class="{'btn-default': ingredient.value==0, 'btn-success': ingredient.value != 0}") {{ ingredient.name }}&nbsp;
+    div(ng-repeat="ingredient in item.obj.ingredients track by $index", ng-init="setIngredientValues(ingredient, $index)" ng-class="{ row: $index % 3 == 2 }" style="margin-top:15px;")
+        .col-sm-4.col-xs-12.ingredient
+            .btn.col-xs-12(ng-click="setIngredient(ingredient)", ng-class="{'btn-default': ingredient.value==0, 'btn-info': ingredient.value != 0}") {{ ingredient.name }}&nbsp;{{ $index % 3}}
                 i.fa.fa-fw.fa-plus(ng-show="ingredient.value >= 1")
                 i.fa.fa-fw.fa-plus(ng-show="ingredient.value == 2")
+        .clearfix(ng-if="$index % 3 == 2")
+    .clearfix
 .modal-footer
-    a.btn.btn-success(ng-click="ok()")
+    a.btn.btn-success.btn-lg(ng-click="ok()")
         i.fa.fa-check
-        |  Submit
+        |  Add to Order

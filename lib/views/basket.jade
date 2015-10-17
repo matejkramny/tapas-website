@@ -11,13 +11,9 @@ block body
                     .col-sm-6
                         input.form-control(type="text" placeholder="Full Name" ng-model="customer.name" required ng-change="saveCustomer()")
                 .form-group
-                    label.control-label.col-sm-4 Address
-                    .col-sm-6
-                        textarea.form-control(placeholder="Address" ng-model="customer.address" required ng-change="saveCustomer()")
-                .form-group
                     label.control-label.col-sm-4 Postcode
                     .col-sm-6
-                        angucomplete-alt#postcode(placeholder='Postcode', selected-object='postCode', remote-api-handler="getPostcodes", remote-url-data-field="result", pause="300", input-changed="verifyPostcode", input-class='form-control')
+                        angucomplete-alt#postcode(placeholder='Postcode', selected-object='customer.postcode', remote-api-handler="getPostcodes", remote-url-data-field="result", pause="300", title-field="name" input-changed="verifyPostcode", input-class='form-control')
                 .form-group
                     label.control-label.col-sm-4 Phone Number
                     .col-sm-6

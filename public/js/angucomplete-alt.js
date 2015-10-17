@@ -538,7 +538,6 @@
                 var i, description, image, text, formattedText, formattedDesc;
 
                 if (responseData && responseData.length > 0) {
-                    console.log(responseData);
                     scope.results = [];
 
                     for (i = 0; i < responseData.length; i++) {

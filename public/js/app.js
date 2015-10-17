@@ -31,7 +31,6 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 	} catch (e) {
 		$scope.customer = {};
 	}
-	$scope.postCodeValid = false;
 	basketService.getItems();
 
 	$scope.saveCustomer = function () {
@@ -78,7 +77,6 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 
 		$http.get('https://api.postcodes.io/postcodes/'+entered+'/autocomplete', {timeout: timeoutPromise})
 		.then(function (res) {
-			console.log(res);
 			var postcodes = res.data.result;
 			for (var i = 0; i < postcodes.length; i++) {
 				postcodes[i] = {
@@ -86,20 +84,36 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 				};
 			}
 
+				if (postcodes.length == 0) {
+					postcodes.push({
+						name: entered
+					})
+				}
+
 			res.data.result = postcodes;
 			deferred.resolve(res);
 		}, function (e) {
-			deferred.reject(e)
+			deferred.resolve({
+				data: {
+					result: [{
+						name: entered
+					}]
+				}
+			})
 		});
 
 		return deferred.promise;
 	};
 	$scope.verifyPostcode = function(postcode) {
-		console.log(postcode);
+		if (postcode instanceof Object) postcode = postcode.title;
+		$scope.customer.postcode=postcode;
 		$http.get('https://api.postcodes.io/postcodes/'+postcode)
-			.success(function () {$scope.postCodeValid=true})
+			.success(function (res) {$scope.postCodeValid=true;})
 			.error(function () {$scope.postCodeValid=false});
-	}
+		$scope.saveCustomer();
+	};
+	$scope.postcode=$scope.customer.postcode;
+	$scope.verifyPostcode($scope.customer.postcode);
 });
 
 app.controller('IngredientsInstanceCtrl', ['$scope', '$modalInstance',  function ($scope, $modalInstance) {

@@ -175,13 +175,15 @@ app.service('basketService', function ($http, $rootScope, $modal, localStorageSe
 			var scope = $rootScope.$new();
 			self.getItems();
 			scope.item = self.items[item];
-			$modal.open({
-				scope: scope,
-				controller: 'IngredientsInstanceCtrl',
-				templateUrl: 'ingredients'
-			}).result.then(function() {
+			if (scope.item.ingredients.length > 0) {
+				$modal.open({
+					scope: scope,
+					controller: 'IngredientsInstanceCtrl',
+					templateUrl: 'ingredients'
+				}).result.then(function() {
 					self.save()
 				});
+			}
 		}
 		console.log(self.items[item]);
 		self.save();

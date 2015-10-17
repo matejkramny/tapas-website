@@ -145,8 +145,13 @@ app.service('basketService', function ($http, $rootScope, $modal, localStorageSe
 
 	this.calculateTotal = function () {
 		self.totalItems = 0;
+		$rootScope.totalPrice = 0;
 		self.items.forEach(function (item) {
 			self.totalItems += item.quantity;
+			try {
+				$rootScope.totalPrice += item.quantity * item.obj.price
+			} catch (e) {
+			}
 		});
 	};
 
@@ -171,6 +176,12 @@ app.service('basketService', function ($http, $rootScope, $modal, localStorageSe
 		}
 	};
 
+	this.itemHasIngredients = function (id, cb) {
+		$http.get('/item/' + id).success(function (obj) {
+			if (obj.ingredients.length) cb();
+		});
+	};
+
 	this.addItem = function (id) {
 		var found = false;
 		var item = 0;
@@ -193,17 +204,16 @@ app.service('basketService', function ($http, $rootScope, $modal, localStorageSe
 			var scope = $rootScope.$new();
 			self.getItems();
 			scope.item = self.items[item];
-			if (scope.item.ingredients.length > 0) {
-				$modal.open({
-					scope: scope,
-					controller: 'IngredientsInstanceCtrl',
-					templateUrl: 'ingredients'
-				}).result.then(function() {
-					self.save()
+			self.itemHasIngredients(id, function () {
+					$modal.open({
+						scope: scope,
+						controller: 'IngredientsInstanceCtrl',
+						templateUrl: 'ingredients'
+					}).result.then(function() {
+						self.save()
+					});
 				});
 			}
-		}
-		console.log(self.items[item]);
 		self.save();
 
 	};

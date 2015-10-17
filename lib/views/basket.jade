@@ -13,7 +13,7 @@ block body
                 .form-group
                     label.control-label.col-sm-4 Postcode
                     .col-sm-6
-                        angucomplete-alt#postcode(placeholder='Postcode', selected-object='customer.postcode', remote-api-handler="getPostcodes", remote-url-data-field="result", pause="300", title-field="name" input-changed="verifyPostcode", input-class='form-control')
+                        angucomplete-alt#postcode(placeholder='Postcode', initial-value="customer.postcode", selected-object='customer.postcode', remote-api-handler="getPostcodes", remote-url-data-field="result", pause="300", title-field="name" input-changed="verifyPostcode", input-class='form-control')
                 .form-group
                     label.control-label.col-sm-4 Phone Number
                     .col-sm-6
@@ -38,10 +38,14 @@ block body
                     td Qty
                     td Price
                     td &nbsp;
-                tbody: tr(ng-repeat="item in basket.items track by item.id")
-                    td {{ item.obj.name }}
-                    td: input.form-control(type="number" ng-model="item.quantity" ng-change="basket.save()")
-                    td £{{ (item.quantity * item.obj.price).toFixed(2) }}
-                    td
-                        button.btn.btn-info.btn-xs(ng-click="ingredients(item); basket.save()"): i.fa.fa-fw.fa-edit
-                        button.btn.btn-danger.btn-xs(ng-click="basket.remove(item); basket.save()"): i.fa.fa-fw.fa-times
+                tbody
+                    tr(ng-repeat="item in basket.items track by item.id")
+                        td {{ item.obj.name }}
+                        td: input.form-control(type="number" ng-model="item.quantity" ng-change="basket.save()")
+                        td £{{ (item.quantity * item.obj.price).toFixed(2) }}
+                        td
+                            button.btn.btn-info.btn-xs(ng-click="ingredients(item); basket.save()" ng-hide="item.obj.ingredients.length == 0"): i.fa.fa-fw.fa-edit
+                            button.btn.btn-danger.btn-xs(ng-click="basket.remove(item); basket.save()"): i.fa.fa-fw.fa-times
+                    tr
+                        td(colspan=2).text-right: strong Total:
+                        td(colspan=2).text-left £{{ totalPrice.toFixed(2) }}

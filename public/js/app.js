@@ -105,7 +105,8 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 		return deferred.promise;
 	};
 	$scope.verifyPostcode = function(postcode) {
-		if (postcode) {
+		console.log(postcode);
+		if (postcode != undefined) {
 			if (postcode.title != undefined) {postcode = postcode.title;}
 			else if (postcode.originalObject != undefined) {postcode = postcode.originalObject;}
 			$http.get('https://api.postcodes.io/postcodes/'+postcode)
@@ -118,7 +119,8 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 					})
 				})
 				.error(function () {
-					$scope.postCodeValid=false
+					$scope.postCodeValid=false;
+					$scope.deliveryCharge = 0;
 				});
 			$scope.saveCustomer();
 	}};

@@ -105,15 +105,17 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 		return deferred.promise;
 	};
 	$scope.verifyPostcode = function(postcode) {
-		console.log(postcode);
 		if (postcode) {
 			if (postcode.title != undefined) {postcode = postcode.title;}
 			else if (postcode.originalObject != undefined) {postcode = postcode.originalObject;}
-			console.log(postcode);
 			$http.get('https://api.postcodes.io/postcodes/'+postcode)
 				.success(function (res) {
 					$scope.postCodeValid=true;
 					$scope.customer.postcode=res.result.postcode;
+					$http.get('/distance/'+res.result.postcode).success(function (result) {
+						if (result >3) $scope.deliveryCharge = Math.ceil(result)*0.5;
+						else $scope.deliveryCharge = 1.5
+					})
 				})
 				.error(function () {
 					$scope.postCodeValid=false

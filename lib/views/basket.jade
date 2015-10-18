@@ -47,5 +47,8 @@ block body
                             button.btn.btn-info.btn-xs(ng-click="ingredients(item); basket.save()" ng-hide="item.obj.ingredients.length == 0"): i.fa.fa-fw.fa-edit
                             button.btn.btn-danger.btn-xs(ng-click="basket.remove(item); basket.save()"): i.fa.fa-fw.fa-times
                     tr
+                        td(colspan=2).text-right: strong Delivery:
+                        td(colspan=2).text-left £{{ deliveryCharge.toFixed(2) }}
+                    tr
                         td(colspan=2).text-right: strong Total:
-                        td(colspan=2).text-left £{{ totalPrice.toFixed(2) }}
+                        td(colspan=2).text-left £{{ (totalPrice+deliveryCharge).toFixed(2) }}

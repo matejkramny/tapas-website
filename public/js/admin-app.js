@@ -91,11 +91,6 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
             })
         })
     };
-    $scope.orderLogs = function(){
-        $modal.open({
-            templateUrl:"/admin/logs"
-        })
-    };
 
     $scope.config = function(){
         $modal.open({
@@ -109,6 +104,64 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
             })
     }
 
+}]);
+app.controller('logsCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API', function ($scope, $rootScope, $modal, $window, API) {
+    $scope.getOrders = function ()  {
+        API.getOrders(function (orders) {
+            $scope.orders = orders;
+        })
+    };
+    $scope.refresh = function () {
+        $scope.getOrders();
+    };
+    $scope.refresh();
+    $scope.orderStatus = function (status) {
+        switch (status) {
+            case 0:
+                return "Waiting";
+            case 1:
+                return "Approved";
+            case 2:
+                return "Denied";
+        }
+    };
+    $scope.statusClass = function (status) {
+        switch (status) {
+            case 0:
+                return "fa-clock-o";
+            case 1:
+                return "fa-check";
+            case 2:
+                return "fa-times";
+        }
+    };
+    $scope.changeStatus = function (order, status) {
+        order.status=status;
+        API.changeOrder(order._id, order);
+    };
+
+    $scope.viewOrder = function (order) {
+        var scope = $rootScope.$new();
+        scope.order = order;
+        $modal.open({
+            scope: scope,
+            templateUrl: 'viewOrder',
+            controller: 'viewOrderInstanceCtrl'
+        })
+    };
+
+    $scope.deleteOrder = function (id){
+        if ($window.confirm("Are you sure you would like to delete this order?")) {
+            API.deleteOrder(id, function () {
+                $scope.refresh();
+            });
+        }
+    }
+}]);
+app.controller('viewOrderInstanceCtrl', ['$scope', '$modalInstance', 'API', function ($scope, $modalInstance, API) {
+    for (var i = 0; i<$scope.order.items.length; i++) {
+        API.getItem($scope.order.items[i]._id, function (item) {$scope.items.push(item)});
+    }
 }]);
 app.controller('EditItemInstanceCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
@@ -367,6 +420,13 @@ app.service('API', ['$http', function($http){
         })
     };
 
+    this.getItem = function (id, cb) {
+        if (!cb) cb = function(){};
+        $http.get('/item/'+id).success(function (item) {
+            cb(item);
+        })
+    };
+
     this.editItem = function (item, cb) {
         if (!cb) cb = function(){};
         $http.put('/admin/item/'+item._id, item).success(function (item) {
@@ -394,5 +454,26 @@ app.service('API', ['$http', function($http){
             cb(item);
         })
     };
+
+    this.getOrders = function (cb) {
+        if (!cb) cb = function(){};
+        $http.get('/admin/orders').success(function (orders) {
+            cb(orders);
+        })
+    };
+
+    this.changeOrder = function (id, order, cb) {
+        if (!cb) cb = function(){};
+        $http.put('/admin/order/'+id, order).success(function (order) {
+            cb(order)
+        })
+    };
+
+    this.deleteOrder = function (id, cb) {
+      $http.delete('/admin/order/'+id).success(function () {
+          cb()
+      })
+    };
+
     return this;
 }]);

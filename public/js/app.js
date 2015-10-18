@@ -31,7 +31,13 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 	} catch (e) {
 		$scope.customer = {};
 	}
-	basketService.getItems();
+	basketService.getItems(function () {
+		for (var i=0; i < basketService.items.length; i++) {
+			$scope.totalPrice += basketService.items[i].obj.price;
+		}
+	});
+
+	$rootScope.totalPrice=0;
 
 	$scope.saveCustomer = function () {
 		localStorageService.set('customer', JSON.stringify($scope.customer));
@@ -77,22 +83,23 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 
 		$http.get('https://api.postcodes.io/postcodes/'+entered+'/autocomplete', {timeout: timeoutPromise})
 		.then(function (res) {
-			var postcodes = res.data.result;
-			for (var i = 0; i < postcodes.length; i++) {
-				postcodes[i] = {
-					name: postcodes[i]
-				};
-			}
+				var postcodes = res.data.result
+				if (postcodes) {
+					for (var i = 0; i < postcodes.length; i++) {
+						postcodes[i] = {
+							name: postcodes[i]
+						};
+					}
 
-				if (postcodes.length == 0) {
-					postcodes.push({
-						name: entered
-					})
+					if (postcodes.length == 0) {
+						postcodes.push({
+							name: entered
+						})
+					}
 				}
-
-			res.data.result = postcodes;
-			deferred.resolve(res);
-		}, function (e) {
+				res.data.result = postcodes;
+				deferred.resolve(res);
+			}, function (e) {
 			deferred.resolve({
 				data: {
 					result: [{
@@ -105,7 +112,6 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 		return deferred.promise;
 	};
 	$scope.verifyPostcode = function(postcode) {
-		console.log(postcode);
 		if (postcode != undefined) {
 			if (postcode.title != undefined) {postcode = postcode.title;}
 			else if (postcode.originalObject != undefined) {postcode = postcode.originalObject;}
@@ -117,13 +123,15 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 						if (result >3) $scope.deliveryCharge = Math.ceil(result)*0.5;
 						else $scope.deliveryCharge = 1.5
 					})
+					$scope.saveCustomer();
 				})
 				.error(function () {
 					$scope.postCodeValid=false;
 					$scope.deliveryCharge = 0;
 				});
-			$scope.saveCustomer();
-	}};
+
+		}
+	};
 	$scope.postcode=$scope.customer.postcode;
 });
 
@@ -170,22 +178,18 @@ app.service('basketService', function ($http, $rootScope, $modal, localStorageSe
 
 	this.calculateTotal = function () {
 		self.totalItems = 0;
-		$rootScope.totalPrice = 0;
 		self.items.forEach(function (item) {
 			self.totalItems += item.quantity;
-			try {
-				$rootScope.totalPrice += item.quantity * item.obj.price
-			} catch (e) {
-			}
 		});
 	};
 
 	this.calculateTotal();
 
-	this.getItems = function () {
+	this.getItems = function (cb) {
 		this.items.forEach(function (item) {
 			$http.get('/item/' + item.id).success(function (obj) {
 				item.obj = obj;
+				$rootScope.totalPrice += obj.price;
 			});
 		});
 	};

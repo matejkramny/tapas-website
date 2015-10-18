@@ -407,6 +407,10 @@ textarea { resize:vertical; }
   padding-right: 60px;
 }
 
+.status {
+  font-size: 22px;
+}
+
 /* AUTOCOMPLETE */
 
 .angucomplete-holder {

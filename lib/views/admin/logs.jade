@@ -1,10 +1,44 @@
-.modal-header
-   h3 Order logs - History
-.modal-body
-   table.table.table-bordered
-      thead
-         tr
-            td Order ID
+extend top
 
+block body
+    div(ng-controller="logsCtrl")
+        .food-menu.container
+            h1.text-center Orders
+            table.table.table-bordered
+                thead
+                    tr
+                        td Time
+                        td Name
+                        td Postcode
+                        td Phone #
+                        td Status
+                        td Options
+                tbody
+                    tr(ng-repeat="order in orders")
+                        td {{ order.timeSent | date:'dd/MM/yyyy HH:mm' }}
+                        td {{ order.name }}
+                        td {{ order.postcode }}
+                        td {{ order.phone }}
+                        td.status
+                            i.fa(ng-class="statusClass(order.status)")
+                            |  {{ orderStatus(order.status) }}
+                        td
+                            .btn-group
+                                a.btn.btn-success(ng-click="changeStatus(order, 1)", ng-disabled="order.status != 0")
+                                    i.fa.fa-check
+                                    | Approve
+                                a.btn.btn-danger(ng-click="changeStatus(order, 2)", ng-disabled="order.status != 0")
+                                    i.fa.fa-times
+                                    | Deny
+                                a.btn.btn-info(ng-click="viewOrder(order)")
+                                    i.fa.fa-list-alt
+                                    |  View
+                                //a.btn.btn-warning(ng-click="editOrder(order)")
+                                    i.fa.fa-edit
+                                    |  Edit
+                                a.btn.btn-danger(ng-click="deleteOrder(order._id)")
+                                    i.fa.fa-remove
+                                    |  Delete
 
-.modal-footer
+    script(type="text/ng-template", id="viewOrder")
+        include  partials/vieworder

@@ -1,0 +1,25 @@
+.modal-header
+    h1 View order
+.modal-body
+    table.table.table-bordered
+        tr
+            td Name
+            td {{ order.name }}
+        tr
+            td Postcode
+            td {{ order.postcode }}
+        tr
+            td Phone number
+            td {{ order.phone }},
+        tr
+            td Email
+            td {{order.email}}
+        tr
+            td Time
+            td {{ order.timeSent | date:'dd/MM/yyyy HH:mm' }}
+        tr
+            td Items
+            td(ng-repeat="item in items"): table.table.table-bordered: tbody
+                tr
+                    td Name
+                    td {{ item.name }}

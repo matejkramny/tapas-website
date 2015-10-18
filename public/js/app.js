@@ -105,15 +105,22 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 		return deferred.promise;
 	};
 	$scope.verifyPostcode = function(postcode) {
-		if (postcode instanceof Object) postcode = postcode.title;
-		$scope.customer.postcode=postcode;
-		$http.get('https://api.postcodes.io/postcodes/'+postcode)
-			.success(function (res) {$scope.postCodeValid=true;})
-			.error(function () {$scope.postCodeValid=false});
-		$scope.saveCustomer();
-	};
+		console.log(postcode);
+		if (postcode) {
+			if (postcode.title != undefined) {postcode = postcode.title;}
+			else if (postcode.originalObject != undefined) {postcode = postcode.originalObject;}
+			console.log(postcode);
+			$http.get('https://api.postcodes.io/postcodes/'+postcode)
+				.success(function (res) {
+					$scope.postCodeValid=true;
+					$scope.customer.postcode=res.result.postcode;
+				})
+				.error(function () {
+					$scope.postCodeValid=false
+				});
+			$scope.saveCustomer();
+	}};
 	$scope.postcode=$scope.customer.postcode;
-	$scope.verifyPostcode($scope.customer.postcode);
 });
 
 app.controller('IngredientsInstanceCtrl', ['$scope', '$modalInstance',  function ($scope, $modalInstance) {

@@ -8,7 +8,11 @@ block body
         h1.text-center Thanks for placing your order
         h3.text-center.lead We will call you on <em>{{ customer.phone }}</em> shortly to confirm the details
         h3.text-center.lead If we don't call you within 3 minutes please kindly call us at 01865792166
+        h2.text-center Status:
+        h3.text-center
+            i.fa(ng-class="statusClass(order.status)")
+            |  {{ statusText(order.status) }}
 
         .row: .col-sm-6.col-sm-offset-3
           h4 You have ordered:
-          ul: li(ng-repeat="item in basket.items") {{ item.quantity }} x {{ item.obj.name }}
+          ul: li(ng-repeat="item in order.items") {{ item.quantity }} x {{ item.obj.name }}

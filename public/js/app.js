@@ -272,22 +272,56 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $http, localStorageS
 		return;
 	}
 
+	var getOrderItem = function (i) {
+		$http.get('/item/'+$scope.order.items[i].id).success(function (item) {
+			$scope.order.items[i].obj = item;
+		})
+	};
+
+	$scope.statusClass=function(status) {
+		switch (status) {
+			case 0:
+				return "fa-refresh fa-spin";
+			case 1:
+				return "fa-check";
+			case 2:
+				return "fa-times";
+		}
+	};
+
+	$scope.statusText = function (status) {
+		switch (status) {
+			case 0:
+				return "Waiting";
+			case 1:
+				return "Approved";
+			case 2:
+				return "Denied";
+		}
+	};
+
 	$http.get('/order/' + s[1]).success(function (datorder) {
-		console.log(datorder);
+		$scope.order = datorder;
+		for (var i = 0;i<$scope.order.items.length;i++) {
+			getOrderItem(i)
+		}
 	}).error(function (blah) {
 		// yeah
-	})
+	});
 
 	var sock = io.connect();
 	sock.on(s[1], function (dat) {
 		$scope.order = dat;
+		for (var i = 0;i<$scope.order.items.length;i++) {
+			getOrderItem(i)
+		}
+		$scope.$apply();
 	});
 
 	if (localStorageService.get('customer')) {
 		$scope.customer = JSON.parse(localStorageService.get('customer'));
 	}
 
-	basketService.getItems();
 	$rootScope.hasOrdered = true;
 
 	localStorageService.set('basket_items', '[]');

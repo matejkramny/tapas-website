@@ -1,5 +1,8 @@
 extend top
 
+append addons
+    script(src="/socket.io/socket.io.js")
+
 block body
     .container.food-menu(ng-controller="ConfirmCtrl")
         h1.text-center Thanks for placing your order

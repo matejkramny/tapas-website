@@ -69,9 +69,9 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 		$http.post('/order', {
 			items: items,
 			customer: $scope.customer
-		}).success(function () {
+		}).success(function (order) {
 			$scope.submitting = false;
-			window.location = '/confirm';
+			window.location = '/confirm?order_id=' + order._id;
 		}).error(function () {
 			$scope.submitting = false;
 			$scope.status = 'Order Failed.'
@@ -265,6 +265,17 @@ app.service('basketService', function ($http, $rootScope, $modal, localStorageSe
 
 app.controller('ConfirmCtrl', function ($scope, $rootScope, localStorageService, basketService) {
 	$scope.basket = basketService;
+
+	var s = document.location.search.split('?order_id=');
+	if (s.length < 1) {
+		document.location = '/';
+		return;
+	}
+
+	var sock = io.connect();
+	sock.on(s[1], function (dat) {
+		console.log(dat);
+	});
 
 	if (localStorageService.get('customer')) {
 		$scope.customer = JSON.parse(localStorageService.get('customer'));

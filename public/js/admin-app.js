@@ -106,6 +106,11 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
 
 }]);
 app.controller('logsCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API', function ($scope, $rootScope, $modal, $window, API) {
+    var socket = io.connect();
+    socket.on('order', function (dat) {
+        console.log(dat);
+    });
+
     $scope.getOrders = function ()  {
         API.getOrders(function (orders) {
             $scope.orders = orders;

@@ -24,12 +24,12 @@ block body
                             |  {{ orderStatus(order.status) }}
                         td
                             .btn-group
-                                a.btn.btn-success(ng-click="changeStatus(order, 1)", ng-disabled="order.status != 0")
+                                //a.btn.btn-success(ng-click="changeStatus(order, 1)", ng-disabled="order.status != 0")
                                     i.fa.fa-check
-                                    | Approve
-                                a.btn.btn-danger(ng-click="changeStatus(order, 2)", ng-disabled="order.status != 0")
+                                    |  Approve
+                                //a.btn.btn-danger(ng-click="changeStatus(order, 2)", ng-disabled="order.status != 0")
                                     i.fa.fa-times
-                                    | Deny
+                                    |  Deny
                                 a.btn.btn-info(ng-click="viewOrder(order)")
                                     i.fa.fa-list-alt
                                     |  View

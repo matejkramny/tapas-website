@@ -274,7 +274,7 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, localStorageService,
 
 	var sock = io.connect();
 	sock.on(s[1], function (dat) {
-		console.log(dat);
+		$scope.order=dat;
 	});
 
 	if (localStorageService.get('customer')) {

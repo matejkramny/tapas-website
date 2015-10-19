@@ -71,7 +71,7 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 			customer: $scope.customer
 		}).success(function (order) {
 			$scope.submitting = false;
-			window.location = '/confirm?order_id=' + order._id;
+			window.location = '/confirm?order_id=' + order.secureID;
 		}).error(function () {
 			$scope.submitting = false;
 			$scope.status = 'Order Failed.'
@@ -263,7 +263,7 @@ app.service('basketService', function ($http, $rootScope, $modal, localStorageSe
 	return this;
 });
 
-app.controller('ConfirmCtrl', function ($scope, $rootScope, localStorageService, basketService) {
+app.controller('ConfirmCtrl', function ($scope, $rootScope, $http, localStorageService, basketService) {
 	$scope.basket = basketService;
 
 	var s = document.location.search.split('?order_id=');
@@ -272,9 +272,15 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, localStorageService,
 		return;
 	}
 
+	$http.get('/order/' + s[1]).success(function (datorder) {
+		console.log(datorder);
+	}).error(function (blah) {
+		// yeah
+	})
+
 	var sock = io.connect();
 	sock.on(s[1], function (dat) {
-		$scope.order=dat;
+		$scope.order = dat;
 	});
 
 	if (localStorageService.get('customer')) {

@@ -6,13 +6,33 @@ append addons
 block body
     .container.food-menu(ng-controller="ConfirmCtrl")
         h1.text-center Thanks for placing your order
-        h3.text-center.lead We will call you on <em>{{ customer.phone }}</em> shortly to confirm the details
-        h3.text-center.lead If we don't call you within 3 minutes please kindly call us at 01865792166
-        h2.text-center Status:
-        h3.text-center
-            i.fa(ng-class="statusClass(order.status)")
+        br
+        p.text-center: i.fa.fa-fw.fa-4x(ng-class="statusClass(order.status)")
+        h2.text-center Order Status:
             |  {{ statusText(order.status) }}
+        h3.text-center.lead Once we confirm your order, we will call you on <em>{{ customer.phone }}</em> shortly to confirm the details
+        h3.text-center.lead If we don't confirm your order within 3 minutes please kindly call us at 01865792166
 
         .row: .col-sm-6.col-sm-offset-3
-          h4 You have ordered:
-          ul: li(ng-repeat="item in order.items") {{ item.quantity }} x {{ item.obj.name }}
+          h3 Your Order
+
+          table.table.table-bordered
+            thead: tr
+                th Item
+                th Quantity
+                th Price
+            tbody
+                tr(ng-repeat="item in order.items")
+                    td {{ item.quantity }} x {{ item.obj.name }}
+                    td {{ item.quantity }}
+                    td £{{ (item.quantity * item.obj.price).toFixed(2) }}
+                tr: td(colspan="3") &nbsp;
+                tr
+                    th(colspan="2").text-right Subtotal
+                    td £{{ (order.total - order.distancePrice).toFixed(2) }}
+                tr
+                    th(colspan="2").text-right Delivery
+                    td {{ order.distancePriceFormatted }}
+                tr
+                    th(colspan="2").text-right Total
+                    td {{ order.totalFormatted }}

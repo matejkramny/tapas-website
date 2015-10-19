@@ -108,7 +108,9 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
 app.controller('logsCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API', function ($scope, $rootScope, $modal, $window, API) {
     var socket = io.connect();
     socket.on('order', function (dat) {
-        console.log(dat);
+        $scope.orders.splice(0, 0, dat);
+        new Audio('/bell.mp3').play();
+        if (!$scope.$$phase) $scope.$digest();
     });
 
     $scope.getOrders = function ()  {
@@ -481,7 +483,7 @@ app.service('API', ['$http', function($http){
     this.getOrders = function (cb) {
         if (!cb) cb = function(){};
         $http.get('/admin/orders').success(function (orders) {
-            cb(orders);
+            cb(orders.reverse());
         })
     };
 

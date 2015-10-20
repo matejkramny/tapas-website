@@ -411,6 +411,18 @@ textarea { resize:vertical; }
   font-size: 22px;
 }
 
+.fa-c-denied {
+  color: #761218;
+}
+
+.fa-c-accepted {
+  color: #1D7C24;
+}
+
+.fa-c-waiting {
+  color: #D8C909;
+}
+
 /* AUTOCOMPLETE */
 
 .angucomplete-holder {

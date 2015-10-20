@@ -288,9 +288,9 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $http, localStorageS
 			case 0:
 				return "fa-refresh fa-spin";
 			case 1:
-				return "fa-check";
+				return "fa-check fa-c-accepted";
 			case 2:
-				return "fa-times";
+				return "fa-times fa-c-denied";
 		}
 	};
 

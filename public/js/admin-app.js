@@ -107,9 +107,21 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
 }]);
 app.controller('logsCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API', function ($scope, $rootScope, $modal, $window, API) {
     var socket = io.connect();
+    var Notification = window.Notification || window.mozNotification || window.webkitNotification;
+    Notification.requestPermission();
+    function show(order) {
+        var instance = new Notification(
+            "New Order", {
+                body: "For "+order.name+"\nPostcode: "+order.postcode
+            }
+        );
+
+        return false;
+    }
     socket.on('order', function (dat) {
         $scope.orders.splice(0, 0, dat);
         new Audio('/bell.mp3').play();
+        show(dat);
         if (!$scope.$$phase) $scope.$digest();
     });
 

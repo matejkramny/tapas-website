@@ -41,7 +41,7 @@ block body
                 tbody
                     tr(ng-repeat="item in basket.items track by item.id")
                         td {{ item.obj.name }}
-                        td: input.form-control(type="number" ng-model="item.quantity" min="1" step="1" ng-change="basket.save()")
+                        td: input.form-control(type="number" ng-model="item.quantity" min="1" step="1" ng-pattern="quantityInput" ng-change="basket.save()")
                         td £{{ (item.quantity * item.obj.price).toFixed(2) }}
                         td
                             button.btn.btn-info.btn-xs(ng-click="ingredients(item); basket.save()" ng-hide="item.obj.ingredients.length == 0"): i.fa.fa-fw.fa-edit

@@ -39,6 +39,7 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 		}
 	});
 
+	$scope.quantityInput = /^[1-9]\d*$/;
 
 	$scope.saveCustomer = function () {
 		localStorageService.set('customer', JSON.stringify($scope.customer));

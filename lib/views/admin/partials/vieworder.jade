@@ -33,10 +33,10 @@
                 tr
                     td Price
                     td £ {{ (order.items[$index].quantity*item.price).toFixed(2) }}
-                tr
+                tr(ng-show="anyIngredients(order.items[$index], item)")
                     td Ingredients
                     td: ul
-                        li(ng-repeat="ingredient in order.items[$index].ingredients track by $index") {{ item.ingredients[$index].name }} x{{ingredient.value}} (default {{ item.ingredients[$index].default_quantity }})
+                        li(ng-repeat="ingredient in order.items[$index].ingredients track by $index", ng-show="ingredient.value != item.ingredients[$index].default_quantity") {{ item.ingredients[$index].name }} x{{ingredient.value}} (default {{ item.ingredients[$index].default_quantity }})
 .modal-footer
     .btn-group
         a.btn.btn-success(ng-click="close(1)", ng-disabled="order.status != 0")

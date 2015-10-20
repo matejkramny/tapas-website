@@ -197,6 +197,18 @@ app.controller('viewOrderInstanceCtrl', ['$scope', '$modalInstance', 'API', func
         $scope.deliveryCost = delivery;
         $scope.total += delivery;
     });
+
+    $scope.anyIngredients = function (orderItem, item) {
+        if (orderItem.ingredients.length > 0) {
+            for (var i = 0;i<orderItem.ingredients.length; i++) {
+                if (orderItem.ingredients[i].value != item.ingredients[i].default_quantity) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+
     $scope.close = function (status) {
         $modalInstance.close(status);
     };

@@ -324,7 +324,9 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $http, localStorageS
 	}).error(function (blah) {
 		// yeah
 	});
-	var updates = 9;
+	var updates = 0;
+	var Notification = window.Notification || window.mozNotification || window.webkitNotification;
+	Notification.requestPermission();
 	var sock = io.connect();
 	sock.on(s[1], function (dat) {
 		$scope.order = dat;
@@ -336,7 +338,7 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $http, localStorageS
 		if (updates>0) {
 			new Notification(
 				"Order "+$scope.statusText(dat.status), {
-					body: "You order is "+$scope.statusText(dat.status),
+					body: "You order at Tapas is "+$scope.statusText(dat.status),
 					icon: $scope.statusIcon(dat.status)
 				});
 		}

@@ -17,7 +17,7 @@
             td {{ order.timeSent | date:'dd/MM/yyyy HH:mm' }}
         tr
             td Delivery cost
-            td £ {{ deliveryCost.toFixed(2) }}
+            td £ {{ order.distancePrice.toFixed(2) }}
         tr
             td Total
             td £ {{ total }}

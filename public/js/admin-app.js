@@ -108,7 +108,10 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
 app.controller('logsCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API', function ($scope, $rootScope, $modal, $window, API) {
     var socket = io.connect();
     var Notification = window.Notification || window.mozNotification || window.webkitNotification;
-    Notification.requestPermission();
+    var iOS = /iPad|iPhone|iPod/.test(navigator.platform);
+    $scope.iosDevice = iOS;
+    $scope.iosBell = false;
+    if (!iOS) Notification.requestPermission();
     function show(order) {
         var instance = new Notification(
             "New Order", {
@@ -122,9 +125,14 @@ app.controller('logsCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API', 
     socket.on('order', function (dat) {
         $scope.orders.splice(0, 0, dat);
         new Audio('/bell.mp3').play();
-        show(dat);
+        if (!iOS) show(dat);
         if (!$scope.$$phase) $scope.$digest();
     });
+
+    $scope.audioTest = function () {
+        new Audio('/bell.mp3').play();
+        $scope.iosBell = true;
+    };
 
     $scope.getOrders = function ()  {
         API.getOrders(function (orders) {
@@ -148,11 +156,11 @@ app.controller('logsCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API', 
     $scope.statusClass = function (status) {
         switch (status) {
             case 0:
-                return "fa-clock-o";
+                return "fa-clock-o fa-c-waiting";
             case 1:
-                return "fa-check";
+                return "fa-check fa-c-accepted";
             case 2:
-                return "fa-times";
+                return "fa-times fa-c-denied";
         }
     };
     $scope.changeStatus = function (order, status) {

@@ -7,6 +7,9 @@ block body
     div(ng-controller="logsCtrl")
         .food-menu.container
             h1.text-center Orders
+            div.text-center(ng-show="!iosBell && iosDevice"): a.btn.btn-info(ng-click="audioTest()")
+                i.fa.fa-bell-o
+                |  Test bell
             table.table.table-bordered
                 thead
                     tr

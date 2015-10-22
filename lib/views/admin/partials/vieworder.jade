@@ -7,6 +7,9 @@
             td Postcode
             td {{ order.postcode }}
         tr
+            td House number
+            td {{ order.houseNr }}
+        tr
             td Phone number
             td {{ order.phone }}
         tr
@@ -20,7 +23,7 @@
             td £ {{ order.distancePrice.toFixed(2) }}
         tr
             td Total
-            td £ {{ total }}
+            td £ {{ total.toFixed(2) }}
         tr
             td Items
             td: table.table.table-bordered(ng-repeat="item in items track by $index"): tbody

@@ -11,6 +11,10 @@ block body
                     .col-sm-6
                         input.form-control(type="text" placeholder="Full Name" ng-model="customer.name" required ng-change="saveCustomer()")
                 .form-group
+                    label.control-label.col-sm-4 House Number
+                    .col-sm-6
+                        input.form-control(type="number" placeholder="House #" ng-model="customer.houseNr" ng-change="saveCustomer()")
+                .form-group
                     label.control-label.col-sm-4 Postcode
                     .col-sm-6
                         angucomplete-alt#postcode(placeholder='Postcode', initial-value="postcode", selected-object='verifyPostcode', remote-api-handler="getPostcodes", remote-url-data-field="result", pause="300", title-field="name", input-changed="verifyPostcode", input-class='form-control' override-suggestions="true" type="search")

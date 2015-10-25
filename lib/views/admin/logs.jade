@@ -10,6 +10,8 @@ block body
             div.text-center(ng-show="!iosBell && iosDevice"): a.btn.btn-info(ng-click="audioTest()")
                 i.fa.fa-bell-o
                 |  Test bell
+                audio.hidden#bell
+                    source(src="/bell.mp3")
             table.table.table-bordered
                 thead
                     tr

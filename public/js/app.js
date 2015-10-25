@@ -327,8 +327,10 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $http, localStorageS
 	});
 	var updates = 0;
 	var Notification = window.Notification || window.mozNotification || window.webkitNotification;
-	Notification.requestPermission();
+	var iOS = /iPad|iPhone|iPod/.test(navigator.platform);
+	if (!iOS)Notification.requestPermission();
 	var sock = io.connect();
+	$scope.iosDevice = iOS;
 	sock.on(s[1], function (dat) {
 		$scope.order = dat;
 		for (var i = 0;i<$scope.order.items.length;i++) {
@@ -337,7 +339,7 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $http, localStorageS
 		updates++;
 		$scope.$apply();
 		if (updates>0) {
-			new Notification(
+			if (!iOS) new Notification(
 				"Order "+$scope.statusText(dat.status), {
 					body: "You order at Tapas is "+$scope.statusText(dat.status),
 					icon: $scope.statusIcon(dat.status)

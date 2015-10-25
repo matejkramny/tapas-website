@@ -71,7 +71,7 @@ html(lang="en" ng-app="tapas")
     script.
       $(document).ready(function() {
         var navpos = $('.navbar-default').offset();
-        if ($(window).width() > 768) {
+        if ($(window).width() >= 768) {
           $(window).bind('scroll', function() {
             if ($(window).scrollTop() > navpos.top) {
               $('.navbar-default').addClass('navbar-fixed-top');

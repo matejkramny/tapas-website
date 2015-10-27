@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /confirm
+Disallow: /login
+Sitemap: https://tapasdelivery.co.uk/sitemap.xml

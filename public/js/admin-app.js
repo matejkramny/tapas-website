@@ -37,18 +37,38 @@ app.controller('AdminCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API',
         })
     };
     $scope.deleteItem = function(id){
-        if ($window.confirm("Are you sure you would like to delete this item?")) {
-            API.deleteItem(id, function () {
-                $scope.refresh();
+        swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this item!",
+                type: "error",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                API.deleteItem(id, function () {
+                    $scope.refresh();
+                    swal("Deleted!", "The item has been deleted", "success");
+                });
             });
-        }
     };
     $scope.deleteSection = function(id){
-        if ($window.confirm("Are you sure you would like to delete this section and all its items?")) {
-            API.deleteSection(id, function () {
-                $scope.refresh();
+        swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this section!",
+                type: "error",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                API.deleteSection(id, function () {
+                    $scope.refresh();
+                    swal("Deleted!", "The section has been deleted", "success");
+                });
             });
-        }
     };
     $scope.upload = function(item){
         var scope = $rootScope.$new();
@@ -181,11 +201,21 @@ app.controller('logsCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API', 
     };
 
     $scope.deleteOrder = function (id){
-        if ($window.confirm("Are you sure you would like to delete this order?")) {
-            API.deleteOrder(id, function () {
-                $scope.refresh();
+        swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this order!",
+                type: "error",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                API.deleteOrder(id, function () {
+                    $scope.refresh();
+                    swal("Deleted!", "The order has been deleted", "success");
+                });
             });
-        }
     }
 }]);
 app.controller('viewOrderInstanceCtrl', ['$scope', '$modalInstance', 'API', function ($scope, $modalInstance, API) {

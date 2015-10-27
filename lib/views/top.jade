@@ -66,6 +66,8 @@ html(lang="en" ng-app="tapas")
         a.btn.btn-social-icon.btn-twitter(ng-show="config.twitter != ''", href="{{ config.twitter }}", target="_blank"): i.fa.fa-twitter
         a.btn.btn-social-icon.btn-facebook(ng-show="config.facebook != ''", href="{{ config.facebook }}", target="_blank"): i.fa.fa-facebook
         a.btn.btn-social-icon.btn-instagram(ng-show="config.instagram != ''", href="{{ config.instagram }}", target="_blank"): i.fa.fa-instagram
+        br
+        a(href="/about"): strong About Us
     script(type="text/ng-template", id="ingredients")
       include partials/ingredients
     script.

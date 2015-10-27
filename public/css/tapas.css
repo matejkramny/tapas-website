@@ -401,8 +401,6 @@ textarea { resize:vertical; }
   border-bottom: solid #080808 1px !important;
 }
 
-
-
 .navbar-toggle {
   padding-right: 60px;
 }
@@ -421,6 +419,10 @@ textarea { resize:vertical; }
 
 .fa-c-waiting {
   color: #D8C909;
+}
+
+p.about-us {
+  white-space: pre-wrap;
 }
 
 /* AUTOCOMPLETE */

@@ -219,22 +219,6 @@ app.controller('logsCtrl', ['$scope', '$rootScope', '$modal', '$window', 'API', 
     }
 }]);
 app.controller('viewOrderInstanceCtrl', ['$scope', '$modalInstance', 'API', function ($scope, $modalInstance, API) {
-    $scope.items = [];
-    $scope.total = 0.0;
-    var setItem = function (i) {
-        API.getItem($scope.order.items[i].id, function (item) {
-            $scope.items.push(item);
-            $scope.total += item.price*$scope.order.items[i].quantity;
-        });
-    };
-    for (var i = 0; i<$scope.order.items.length; i++) {
-        setItem(i);
-    }
-    API.getDistance($scope.order.postcode, function (distance) {
-        var delivery = distance > 3 ? Math.ceil(distance)*0.5 : 1.5;
-        $scope.deliveryCost = delivery;
-        $scope.total += delivery;
-    });
 
     $scope.anyIngredients = function (orderItem, item) {
         if (orderItem.ingredients.length > 0) {

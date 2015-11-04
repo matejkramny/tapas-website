@@ -25,7 +25,7 @@
                     br
                     | Default Values
                 .input-group-addon
-                    .input-group.form-group(ng-repeat="ingredient in item.ingredients track by $index | filter: { deleted: false }")
+                    .input-group.form-group(ng-repeat="ingredient in item.ingredients track by $index")
                         input.form-control(type="text", ng-model="ingredient.name", placeholder="Ingredient name")
                         .input-group-btn
                             a.btn.btn-default(ng-class="{'btn-success': ingredient.default_quantity==0}", ng-click="setIngredient(0, $index)") None

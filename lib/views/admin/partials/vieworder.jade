@@ -23,7 +23,7 @@
             td £ {{ order.distancePrice.toFixed(2) }}
         tr
             td Total
-            td £ {{ total.toFixed(2) }}
+            td £ {{ order.total.toFixed(2) }}
         tr
             td Items
             td: table.table.table-bordered(ng-repeat="item in items track by $index"): tbody

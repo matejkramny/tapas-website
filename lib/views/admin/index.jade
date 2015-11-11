@@ -43,7 +43,7 @@ block body
                         td.col-xs-6 Name
                         td.col-xs-2 Price
                         td.col-xs-3 Actions
-                    tr(ng-repeat="item in section.items track by $index | filter: { deleted: false }", ng-class="{'hidden-item': item.hidden}")
+                    tr(ng-repeat="item in section.items track by $index", ng-class="{'hidden-item': item.hidden}")
                         td: strong {{ item.order }}
                         td: strong(title="{{item._id}}") {{ item.name }}
                         td: strong {{ item.price | currency:"£ " }}

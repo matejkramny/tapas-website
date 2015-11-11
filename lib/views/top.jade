@@ -57,6 +57,15 @@ html(lang="en" ng-app="tapas")
                   i.fa.fa-cogs.fa-fw
     .container.marketing(ng-controller="configCtrl", ng-show="config.promo")
       img.marketing-img(ng-src="https://tapas-media.s3-eu-west-1.amazonaws.com/promo.{{ config.promo_extension }}", alt="")
+    .container.food-menu.hidden-xs(ng-controller="configCtrl", style="white-space: pre;")
+      .col-xs-12.col-sm-6
+        b {{ config.name }}
+        br
+        | {{ config.address }}
+      .col-xs-12.col-sm-6
+        b Opening hours
+        br
+        | {{ config.openHours }}
     block body
     .container.food-menu(ng-controller="configCtrl", style="white-space: pre;")
       .col-xs-12.col-sm-4

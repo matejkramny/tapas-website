@@ -122,7 +122,7 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 					$scope.postCodeValid=true;
 					$scope.customer.postcode=res.result.postcode;
 					$http.get('/distance/'+res.result.postcode).success(function (result) {
-						if (result >2) $scope.deliveryCharge = Math.ceil(result)*0.5;
+						if (result >2) $scope.deliveryCharge = Math.ceil(result-1)*1;
 						else $scope.deliveryCharge = 1
 					})
 					$scope.saveCustomer();

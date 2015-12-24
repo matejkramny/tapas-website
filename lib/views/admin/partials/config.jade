@@ -34,6 +34,10 @@
         progressbar(max='100', value='upload.progress', ng-if="upload.progress > 0")
             span(style='color:white; white-space:nowrap;') {{ upload.progress }}% Uploaded
         input(type="hidden", name="hidden", ng-value="config.promo")
+        .form-group: .btn-group.input-group
+            .input-group-addon Close store
+            input.form-control(type="text", ng-model="config.closedMessage")
+            .input-group-btn: .btn(ng-class="{'btn-success': config.closed, 'btn-danger': !config.closed}", ng-click="toggle('closed')"): i.fa.fa-fw(ng-class="{'fa-check': config.closed, 'fa-times': !config.closed}")
 .modal-footer
     a.btn.btn-success(ng-click="ok()", ng-disabled="configForm.$invalid")
         i.fa.fa-check

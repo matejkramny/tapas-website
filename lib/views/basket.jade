@@ -27,7 +27,7 @@ block body
                     .col-sm-6
                         input.form-control(type="email" placeholder="Email" ng-model="customer.email" required ng-change="saveCustomer()")
                 .form-group: .col-sm-6.col-sm-offset-4
-                    button.btn.btn-success(type="submit" ng-disabled="customerForm.$invalid || submitting || !postCodeValid" ng-click="submitOrder()")
+                    button.btn.btn-success(type="submit" ng-disabled="customerForm.$invalid || submitting || !postCodeValid || config.closed" ng-click="submitOrder()")
                         span(ng-if="!submitting")
                             i.fa.fa-check.fa-fw
                             | &nbsp;Confirm Order

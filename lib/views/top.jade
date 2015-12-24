@@ -54,6 +54,9 @@ html(lang="en" ng-app="tapas")
               li.btn-danger.pull-right
                 a(href="/admin", style="color: #fff !important")
                   i.fa.fa-cogs.fa-fw
+    .container(ng-controller="configCtrl", ng-show="config.closed && config.closedMessage"): .alert.alert-danger
+      b Sorry, we are not accepting orders at the moment:
+      |  {{config.closedMessage}}
     .container.marketing(ng-controller="configCtrl", ng-show="config.promo")
       img.marketing-img(ng-src="https://tapas-media.s3-eu-west-1.amazonaws.com/promo.{{ config.promo_extension }}", alt="")
     .container.food-menu.hidden-xs(ng-controller="configCtrl", style="white-space: pre;")

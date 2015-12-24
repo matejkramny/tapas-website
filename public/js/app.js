@@ -24,7 +24,13 @@ app.controller('configCtrl', ['$scope', 'clientAPI', function($scope, clientAPI)
   });
 }]);
 
-app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, basketService, localStorageService) {
+app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, basketService, localStorageService, clientAPI) {
+
+	$scope.config = {};
+	clientAPI.getAllConfig(function (config) {
+		$scope.config = config;
+	});
+
 	try {
 		$scope.customer = JSON.parse(localStorageService.get('customer'));
 		if (!$scope.customer) throw Error();

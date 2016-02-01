@@ -80,9 +80,13 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 		}).success(function (order) {
 			$scope.submitting = false;
 			window.location = '/confirm?order_id=' + order.secureID;
-		}).error(function () {
+		}).error(function (_, status) {
 			$scope.submitting = false;
-			$scope.status = 'Order Failed.'
+			if (status == 406) {
+				$scope.status = 'We are currently not accepting orders'
+			} else {
+				$scope.status = 'Order Failed'
+			}
 		})
 	};
 	$scope.postcodes = [];
@@ -125,7 +129,9 @@ app.controller('BasketCtrl', function ($scope, $http, $modal, $rootScope, $q, ba
 			else if (postcode.originalObject != undefined) {postcode = postcode.originalObject;}
 			$http.get('https://api.postcodes.io/postcodes/'+postcode)
 				.success(function (res) {
-					$scope.postCodeValid=true;
+					var validPostcodes = ["OX1", "OX2", "OX3", "OX4"];
+					var county = res.result.postcode.substr(0,res.result.postcode.indexOf(' '))
+					if(validPostcodes.indexOf(county) != -1) $scope.postCodeValid=true;
 					$scope.customer.postcode=res.result.postcode;
 					$http.get('/distance/'+res.result.postcode).success(function (result) {
 						if (result >2) $scope.deliveryCharge = Math.ceil(result-1)*1;

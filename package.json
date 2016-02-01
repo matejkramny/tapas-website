@@ -14,6 +14,7 @@
     "googlemaps": "^1.0.2",
     "hiredis": "^0.4.1",
     "jade": "^1.11.0",
+    "moment": "^2.11.1",
     "mongoose": "^4.1.9",
     "morgan": "^1.6.1",
     "node-uuid": "^1.4.3",

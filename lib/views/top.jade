@@ -20,6 +20,7 @@ html(lang="en" ng-app="tapas")
     script(src="/js/bootstrap.min.js")
     script(src="/js/ui-bootstrap.min.js")
     script(src="/js/angucomplete-alt.js")
+    script(src="/js/moment.min.js")
     block addons
   body
     .food-menu.logo-holder.hidden-xs.no-br
@@ -57,6 +58,8 @@ html(lang="en" ng-app="tapas")
     .container(ng-controller="configCtrl", ng-show="config.closed && config.closedMessage"): .alert.alert-danger
       b Sorry, we are not accepting orders at the moment:
       |  {{config.closedMessage}}
+    .container(ng-controller="configCtrl", ng-show="closed && !config.closed"): .alert.alert-danger
+      span Sorry, we are currently not accepting orders. Please check our opening times.
     .container.marketing(ng-controller="configCtrl", ng-show="config.promo")
       img.marketing-img(ng-src="https://tapas-media.s3-eu-west-1.amazonaws.com/promo.{{ config.promo_extension }}", alt="")
     .container.food-menu.hidden-xs(ng-controller="configCtrl", style="white-space: pre;")

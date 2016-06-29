@@ -25,20 +25,20 @@ app.controller('configCtrl', ['$scope', 'clientAPI', function($scope, clientAPI)
 	$scope.closed = false;
 	var openTimes = {
 		"Mon": false,
-		"Tue": ["17:00", "22:30"],
-		"Wed": ["17:00", "22:30"],
-		"Thu": ["17:00", "22:30"],
-		"Fri": ["17:00", "22:30"],
-		"Sat": ["17:00", "22:30"],
-		"Sun": ["17:00", "22:30"]
+		"Tue": [{hour: 17}, {hour:22, minute:30}],
+		"Wed": [{hour: 17}, {hour:22, minute:30}],
+		"Thu": [{hour: 17}, {hour:22, minute:30}],
+		"Fri": [{hour: 17}, {hour:22, minute:30}],
+		"Sat": [{hour: 17}, {hour:22, minute:30}],
+		"Sun": [{hour: 17}, {hour:22, minute:30}]
 	}
 	var now = moment();
 	var today = openTimes[now.format("ddd")];
 	if (today === false) {
 		$scope.closed = true;
 	}
-	var open = moment(new Date(now.format("YYYY-MM-DD") + " " + today[0]))
-	var closed = moment(new Date(now.format("YYYY-MM-DD") + " " + today[1]))
+	var open = moment(today[0])
+	var closed = moment(today[1])
 	if (!now.isBetween(open, closed)) {
 		$scope.closed = true;
 	}
